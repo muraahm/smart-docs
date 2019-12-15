@@ -1,12 +1,12 @@
 import React from "react";
-import ButtonAppBar from "components/Navbar";
+import NavBar from "components/Navbar/Navbar";
 
 
 export default {
   title: "Navigation Bar"
 };
 
-export const NavBar = () => (
-  <ButtonAppBar >
-  </ButtonAppBar>
+export const NavigationBar = () => (
+  <NavBar >
+  </NavBar>
 );

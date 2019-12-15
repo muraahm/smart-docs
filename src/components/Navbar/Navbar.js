@@ -10,6 +10,11 @@ export default function NavBar() {
     <section className="topbar">
       <div className="brand" onClick={() => console.log("hello")}>SmartDocs</div>
       <div className="notLoggedInMenu">
+        <div className='hamburgerMenu'>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
         <div className='dropMenus'>
           <span className="brand" onClick={() => console.log("hello")}>Accountant</span>
           <span className="brand--coma">/</span>

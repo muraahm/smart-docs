@@ -29,6 +29,24 @@
     .dropMenus {
       margin-right: 10px;
     }
+    .hamburgerMenu {
+      display: none;
+    }
+  }
+  @media (max-width: 600px) {
+    .dropMenus {
+      display: none;
+    }
+    .hamburgerMenu {
+      display: block !important;
+      margin-right: 20px;
+      div {
+        width: 35px;
+        height: 5px;
+        background-color:white;
+        margin: 6px 0;
+      }
+    }
   }
   
 }

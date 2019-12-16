@@ -1,5 +1,5 @@
 .topbar {
-  height: 3.2rem;
+  // height: 3.2rem;
   background-color: rgb(38, 65, 35);
   justify-content: space-between;
   align-items: center;
@@ -8,26 +8,49 @@
 
   .brand {
     margin-left: 1rem;
-    font-family: 'Pacifico', cursive;
+    font-family: "Pacifico", cursive;
     font-size: x-large;
     cursor: pointer;
     color: white;
 
     &:hover {
       opacity: 0.25;
-   }
-
-   &--coma {
-    margin-left: 1rem;
-    font-family: 'Pacifico', cursive;
-    font-size: x-large;
-    color: white;
-   }
+    }
   }
 
   .notLoggedInMenu {
     .dropMenus {
-      margin-right: 10px;
+      display: inline-flex;
+      margin-right: 8px;
+      margin-bottom: 4px;
+
+      .menu {
+        margin-left: 1rem;
+        font-family: "Pacifico", cursive;
+        font-size: x-large;
+        cursor: pointer;
+        color: white;
+
+        // &:hover {
+        //   opacity: 0.25;
+        // }
+
+
+    .auth {
+      font-family: "Cormorant Garamond", serif;
+      font-size: large;
+      &:hover {
+        opacity: 0.25;
+      }
+    }
+
+        &--coma {
+          margin-left: 1rem;
+          font-family: "Pacifico", cursive;
+          font-size: x-large;
+          color: white;
+        }
+      }
     }
     .hamburgerMenu {
       display: none;
@@ -36,17 +59,32 @@
   @media (max-width: 600px) {
     .dropMenus {
       display: none;
+      .menu {
+        display: none;
+        &--coma {
+          display: none;
+        }
+      }
+      
     }
     .hamburgerMenu {
       display: block !important;
       margin-right: 20px;
-      div {
+      margin-top: 15px;
+      cursor: pointer;
+      font-family: "Cormorant Garamond", serif;
+      font-size: large;
+
+      &:hover {
+        opacity: 0.25;
+      }
+      .hamburgerbar {
         width: 35px;
         height: 5px;
-        background-color:white;
+        background-color: white;
         margin: 6px 0;
+        
       }
     }
   }
-  
 }

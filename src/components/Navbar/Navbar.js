@@ -11,15 +11,19 @@ export default function NavBar() {
       <div className="brand" onClick={() => console.log("hello")}>SmartDocs</div>
       <div className="notLoggedInMenu">
         <div className='hamburgerMenu'>
-            
-          <div className="hamburgerbar">
-          <Collapsible trigger="hello">
-              <div  onClick={() => console.log("hello")}>Register</div>
-              <div  onClick={() => console.log("hello")}>Login</div>
+          <Collapsible trigger="Start Here">
+            <div className="accountant">Accountant
+              <div className="auth" onClick={() => console.log("hello")}>Register</div>
+              <div className="auth" onClick={() => console.log("hello")}>Login</div>
+              </div>
+              <div className="accountant">Client
+              <div className="auth" onClick={() => console.log("hello")}>Register</div>
+              <div className="auth" onClick={() => console.log("hello")}>Login</div>
+              </div>
             </Collapsible>
-          </div>
-          <div className="hamburgerbar"></div>
-          <div className="hamburgerbar"></div>
+            {/* <div className="hamburgerbar"></div>
+            <div className="hamburgerbar"></div>
+            <div className="hamburgerbar"></div> */}
         </div>
         <div className='dropMenus'>
           <div className="menu">

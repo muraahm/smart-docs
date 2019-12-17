@@ -35,14 +35,13 @@
         //   opacity: 0.25;
         // }
 
-
-    .auth {
-      font-family: "Cormorant Garamond", serif;
-      font-size: large;
-      &:hover {
-        opacity: 0.25;
-      }
-    }
+        .auth {
+          font-family: "Cormorant Garamond", serif;
+          font-size: large;
+          &:hover {
+            opacity: 0.25;
+          }
+        }
 
         &--coma {
           margin-left: 1rem;
@@ -65,25 +64,38 @@
           display: none;
         }
       }
-      
     }
     .hamburgerMenu {
+      font-family: "Pacifico", cursive;
       display: block !important;
       margin-right: 20px;
       margin-top: 15px;
       cursor: pointer;
-      font-family: "Cormorant Garamond", serif;
+      color: white;
+      // font-family: "Cormorant Garamond", serif;
       font-size: large;
-
-      &:hover {
-        opacity: 0.25;
+      .accountant {
+        border: 2px solid black;
+        border-radius: 5px;
+        background-color: rgb(75, 131, 75);
+      
       }
+      .auth {
+        font-family: "Cormorant Garamond", serif;
+        font-size: medium;
+        &:hover {
+          opacity: 0.25;
+        }
+      }
+
+      // &:hover {
+      //   opacity: 0.25;
+      // }
       .hamburgerbar {
         width: 35px;
         height: 5px;
         background-color: white;
         margin: 6px 0;
-        
       }
     }
   }

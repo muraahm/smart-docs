@@ -4,11 +4,15 @@ import "components/Navbar/styles.scss";
 
 
 
-export default function NavBar() {
+export default function NavBar(props) {
+  const name = "sup"
+  let mode = props.name ? "LOGGEDIN" : "LOGGEDOUT";
 
   return (
     <section className="topbar">
       <div className="brand" onClick={() => console.log("hello")}>SmartDocs</div>
+      
+      {mode === "LOGGEDOUT" && (
       <div className="notLoggedInMenu">
         <div className='hamburgerMenu'>
           <Collapsible trigger="Start Here">
@@ -41,7 +45,12 @@ export default function NavBar() {
             </Collapsible>
           </div>
         </div>
-      </div>
+      </div>)}
+
+      {mode === "LOGGEDIN" && (
+      <div className="loggedInMenu">
+         {name} -> <span onClick={() => console.log("hello")}>Logout</span>
+      </div>)}
     </section>
   );
 }

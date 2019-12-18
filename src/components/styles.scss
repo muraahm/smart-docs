@@ -34,3 +34,24 @@
     }
   }
 }
+
+.newCategory {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 20rem;
+  width: 30%;
+  font-family: "Pacifico", cursive;
+  font-size: large;
+  color: white;
+  background-color: rgb(75, 131, 75);
+  border-radius: 15px 30px 45px 7.5px;
+  background-image: linear-gradient(rgb(75, 131, 75), rgb(82, 75, 75));
+  justify-content: space-around;
+  .create {
+    cursor: pointer;
+    &:hover {
+      opacity: 0.25;
+    }
+  }
+}

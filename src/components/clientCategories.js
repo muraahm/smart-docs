@@ -1,6 +1,6 @@
 import React from 'react';
 import "components/styles.scss";
-
+console.log(process.execPath)
 
 export default function Clientcategories(props) {
 
@@ -20,8 +20,9 @@ export default function Clientcategories(props) {
       {categoryList}
       <img
           style={{ cursor: 'pointer' }}
-          src="images/add-64.png"
+          src="https://cdn3.iconfinder.com/data/icons/watchify-v1-0/70/add-70px-512.png"
           alt="Create"
+          height="40" width="40"
           onClick={() => console.log("create category")}
         />
     </div>

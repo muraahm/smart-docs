@@ -1,30 +1,7 @@
 import React from "react";
 import Clientcategories from "components/clientCategories";
 import CreateCategory from "components/createCategory";
-
-const categories = [
-  {id: 1, categoryname: "Personal", accountantname: "Acct1"},
-  {id: 2, categoryname: "Business", accountantname: "Acct2"}
-]
-
-const accountants = [
-  {
-    value: 'USD',
-    label: '$',
-  },
-  {
-    value: 'EUR',
-    label: '€',
-  },
-  {
-    value: 'BTC',
-    label: '฿',
-  },
-  {
-    value: 'JPY',
-    label: '¥',
-  },
-];
+import ViewCategory from "components/viewCategory";
 
 export default {
   title: "Client categories"
@@ -32,15 +9,13 @@ export default {
 
 export const Categories = () => (
   
-  <Clientcategories 
-  categories={categories}
-  >
-  </Clientcategories>
+  <Clientcategories></Clientcategories>
 );
 
 export const Create = () => (
-  <CreateCategory 
-  accountants={accountants}
-  >
-  </CreateCategory>
+  <CreateCategory></CreateCategory>
+);
+
+export const DisplayCategory = () => (
+  <ViewCategory></ViewCategory>
 );

@@ -5,7 +5,20 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 export default function CreateCategory(props) {
 
-  const accountants = props.accountants
+  const accountants = [
+    {
+      value: 'USD'
+    },
+    {
+      value: 'EUR'
+    },
+    {
+      value: 'BTC'
+    },
+    {
+      value: 'JPY'}
+  ];
+
   const [accountant, setAccountant] = React.useState('');
   const handleChangeAccountant = event => {
     setAccountant(event.target.value);
@@ -31,15 +44,12 @@ export default function CreateCategory(props) {
         id="standard-multiline-flexible"
         select
         label="Accountant"
-        
-        
         value={accountant}
         onChange={handleChangeAccountant}
-        // helperText="Please select your accountant"
       >
         {accountants.map(option => (
           <MenuItem key={option.value} value={option.value}>
-            {option.label}
+            {option.value}
           </MenuItem>
         ))}
       </TextField>

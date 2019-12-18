@@ -18,7 +18,7 @@
 
   .categoryItem {
     background-color: rgb(21, 53, 21);
-    margin-top:10px;
+    margin-top: 10px;
     margin-bottom: 5px;
     border-radius: 15px;
     text-align: center;
@@ -54,5 +54,47 @@
     &:hover {
       opacity: 0.25;
     }
+  }
+}
+
+.receiptsList {
+  // text-align: center;
+  // padding-top: 10px;
+  background-color: rgb(155, 182, 155);
+  border-radius: 15px;
+  height: 35rem;
+  width: 70%;
+  // background-repeat: no-repeat;
+  // background-size: cover;
+  display: flex;
+  flex-wrap: wrap;
+  overflow-y: auto;
+  justify-content: space-evenly;
+
+  .categoryDetails {
+    height: 30px;
+    width: 90%;
+    border-style: solid;
+    border-color: rgb(174, 190, 156);
+    background-color: rgb(68, 92, 68);
+    display: inline-flex;
+    justify-content: space-around;
+    border-radius: 15px;
+    align-items: center;
+    font-size: large;
+    color: white;
+  }
+
+  .receiptItem {
+    text-align: center;
+    padding-top: 10px;
+    background-color: rgb(68, 92, 68);
+    border-radius: 15px;
+    height: 30%;
+    width: 20%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-style: solid;
+    border-color: rgb(174, 190, 156);
   }
 }

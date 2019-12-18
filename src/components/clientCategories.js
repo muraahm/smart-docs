@@ -3,14 +3,20 @@ import "components/styles.scss";
 
 export default function Clientcategories(props) {
 
-  const categoryList = props.categories.map(category => {
+
+const categories = [
+  {id: 1, categoryName: "Personal", accountantName: "Acct1"},
+  {id: 2, categoryName: "Business", accountantName: "Acct2"}
+]
+
+  const categoryList = categories.map(category => {
     return (
       <div className="categoryItem"
         key={category.id}
         id={category.id}
-        categoryname={category.categoryname}
-        accountantname={category.accountantname}
-      >{category.categoryname}</div>
+        categoryname={category.categoryName}
+        accountantname={category.accountantName}
+      >{category.categoryName}</div>
     )
   })
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import "components/styles.scss";
-console.log(process.execPath)
 
 export default function Clientcategories(props) {
 
@@ -9,8 +8,8 @@ export default function Clientcategories(props) {
       <div className="categoryItem"
         key={category.id}
         id={category.id}
-        categoryName={category.categoryname}
-        accountantName={category.accountantname}
+        categoryname={category.categoryname}
+        accountantname={category.accountantname}
       >{category.categoryname}</div>
     )
   })

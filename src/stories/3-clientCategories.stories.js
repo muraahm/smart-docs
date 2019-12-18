@@ -1,5 +1,6 @@
 import React from "react";
 import Clientcategories from "components/clientCategories";
+import CreateCategory from "components/createCategory";
 
 const categories = [
   {id: 1, categoryname: "Personal", accountantname: "Acct1"},
@@ -17,4 +18,8 @@ export const Categories = () => (
   categories={categories}
   >
   </Clientcategories>
+);
+
+export const Create = () => (
+  <CreateCategory></CreateCategory>
 );

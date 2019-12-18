@@ -38,7 +38,7 @@
 .newCategory {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  // align-items: center;
   height: 20rem;
   width: 30%;
   font-family: "Pacifico", cursive;
@@ -50,6 +50,7 @@
   justify-content: space-around;
   .create {
     cursor: pointer;
+    text-align: -webkit-center;
     &:hover {
       opacity: 0.25;
     }

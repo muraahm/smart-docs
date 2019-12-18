@@ -20,7 +20,7 @@ export default function CreateCategory(props) {
     <div className="newCategory">
       <TextField
           id="standard-multiline-flexible"
-          label="Category Name"
+          label="Category"
           multiline
           rowsMax="4"
           value={category}
@@ -28,12 +28,14 @@ export default function CreateCategory(props) {
         />
 
       <TextField
-        id="standard-select-accountant"
+        id="standard-multiline-flexible"
         select
         label="Accountant"
+        
+        
         value={accountant}
         onChange={handleChangeAccountant}
-        helperText="Please select your accountant"
+        // helperText="Please select your accountant"
       >
         {accountants.map(option => (
           <MenuItem key={option.value} value={option.value}>

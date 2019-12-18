@@ -72,7 +72,7 @@
   justify-content: space-evenly;
 
   .categoryDetails {
-    height: 30px;
+    height: 35px;
     width: 90%;
     border-style: solid;
     border-color: rgb(174, 190, 156);
@@ -83,6 +83,12 @@
     align-items: center;
     font-size: large;
     color: white;
+
+    .changeAccountant {
+      display: inline-flex;
+      align-items: center;
+      width: 50%;
+    }
   }
 
   .receiptItem {

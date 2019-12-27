@@ -2,8 +2,32 @@ import React from 'react';
 import "components/styles.scss";
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
+import S3FileUpload from 'react-s3';
+
+
 
 export default function ViewCategory(props) {
+
+  const userEmail = "a.murad@nomail.com"
+  const userCategory = "personal"
+
+  const API_KEY = process.env.REACT_APP_access_key_id
+  const secret_access = process.env.REACT_APP_secret_access_key
+  const config = {
+    bucketName: 'smart-docs',
+    dirName: `${userEmail} / ${userCategory}`,
+    region: 'ca-central-1',
+    accessKeyId: API_KEY,
+    secretAccessKey: secret_access,
+  }
+
+  const upload = (e) => {
+    S3FileUpload
+      .uploadFile(e.target.files[0], config)
+      .then(data => console.log(data.location))
+      .catch(err => console.error(err))
+  }
+
   const currentAccountantName = 'Baccari Corporation Inc.'
   const currentCategoryName = "Personal"
 
@@ -34,21 +58,21 @@ export default function ViewCategory(props) {
     }
   ];
   const receipts = [
-    { id: 1, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 12, 2019" },
-    { id: 2, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 12, 2019" },
-    { id: 3, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 12, 2019" },
-    { id: 4, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 12, 2019" },
-    { id: 5, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 12, 2019" },
-    { id: 6, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 12, 2019" },
-    { id: 7, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 12, 2019" },
-    { id: 8, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 12, 2019" },
-    { id: 9, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 12, 2019" },
-    { id: 10, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 12, 2019" },
-    { id: 11, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 12, 2019" },
-    { id: 12, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 12, 2019" },
-    { id: 13, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 12, 2019" },
-    { id: 14, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 12, 2019" },
-    { id: 15, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 12, 2019" }
+    { id: 1, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 12, 2019", url: "https://smart-docs.s3.ca-central-1.amazonaws.com/a.murad%40nomail.com/personal/Nov.20%2C2019_1574297998734.gif" },
+    { id: 2, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 12, 2019", url: "https://smart-docs.s3.ca-central-1.amazonaws.com/a.murad%40nomail.com/personal/Nov.20%2C2019_1574297998734.gif" },
+    { id: 3, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 12, 2019", url: "https://smart-docs.s3.ca-central-1.amazonaws.com/a.murad%40nomail.com/personal/Nov.20%2C2019_1574297998734.gif" },
+    { id: 4, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 12, 2019", url: "https://smart-docs.s3.ca-central-1.amazonaws.com/a.murad%40nomail.com/personal/Nov.20%2C2019_1574297998734.gif" },
+    { id: 5, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 12, 2019", url: "https://smart-docs.s3.ca-central-1.amazonaws.com/a.murad%40nomail.com/personal/Nov.20%2C2019_1574297998734.gif" },
+    { id: 6, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 12, 2019", url: "https://smart-docs.s3.ca-central-1.amazonaws.com/a.murad%40nomail.com/personal/Nov.20%2C2019_1574297998734.gif" },
+    { id: 7, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 12, 2019", url: "https://smart-docs.s3.ca-central-1.amazonaws.com/a.murad%40nomail.com/personal/Nov.20%2C2019_1574297998734.gif" },
+    { id: 8, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 12, 2019", url: "https://smart-docs.s3.ca-central-1.amazonaws.com/a.murad%40nomail.com/personal/Nov.20%2C2019_1574297998734.gif" },
+    { id: 9, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 12, 2019", url: "https://smart-docs.s3.ca-central-1.amazonaws.com/a.murad%40nomail.com/personal/Nov.20%2C2019_1574297998734.gif" },
+    { id: 10, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 12, 2019", url: "https://smart-docs.s3.ca-central-1.amazonaws.com/a.murad%40nomail.com/personal/Nov.20%2C2019_1574297998734.gif" },
+    { id: 11, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 12, 2019", url: "https://smart-docs.s3.ca-central-1.amazonaws.com/a.murad%40nomail.com/personal/Nov.20%2C2019_1574297998734.gif" },
+    { id: 12, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 12, 2019", url: "https://smart-docs.s3.ca-central-1.amazonaws.com/a.murad%40nomail.com/personal/Nov.20%2C2019_1574297998734.gif" },
+    { id: 13, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 12, 2019", url: "https://smart-docs.s3.ca-central-1.amazonaws.com/a.murad%40nomail.com/personal/Nov.20%2C2019_1574297998734.gif" },
+    { id: 14, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 12, 2019", url: "https://smart-docs.s3.ca-central-1.amazonaws.com/a.murad%40nomail.com/personal/Nov.20%2C2019_1574297998734.gif" },
+    { id: 15, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 12, 2019", url: "https://smart-docs.s3.ca-central-1.amazonaws.com/a.murad%40nomail.com/personal/Nov.20%2C2019_1574297998734.gif" }
   ]
 
   const receiptsList = receipts.map(receipt => {
@@ -58,12 +82,19 @@ export default function ViewCategory(props) {
         id={receipt.id}
         uploaddate={receipt.uploadDate}
         purchasedate={receipt.purchaseDate}
-      >{receipt.purchaseDate}</div>
+      >
+        <img
+          style={{ cursor: 'pointer' }}
+          src={receipt.url}
+          alt={receipt.purchaseDate}
+          height="80" width="80"
+          onClick={() => console.log("create category")}
+        />
+      </div>
     )
   })
 
   return (
-
     <div className="receiptsList">
       <div className="categoryDetails">
         <div>Category: {currentCategoryName}</div>
@@ -71,7 +102,6 @@ export default function ViewCategory(props) {
         <TextField
             id="standard-multiline-flexible"
             select
-            // label={accountant}
             value={accountant}
             onChange={handleChangeAccountant}
           >
@@ -81,8 +111,15 @@ export default function ViewCategory(props) {
               </MenuItem>
             ))}
           </TextField>
-          <div onClick={() => { changeAccountnat(accountant) }} style={{float: "right"}}>Save</div></div>
-      </div>{receiptsList}
+          <div onClick={() => { changeAccountnat(accountant) }} style={{ float: "right" }}>Save</div></div>
+      </div>
+      <div className="categoryDetails">
+        <div>Upload: <input
+          type="file"
+          onChange={upload}
+        ></input></div>
+      </div>
+      {receiptsList}
     </div>
   );
 }

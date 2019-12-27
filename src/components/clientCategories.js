@@ -27,7 +27,7 @@ const categories = [
           style={{ cursor: 'pointer' }}
           src="https://cdn3.iconfinder.com/data/icons/watchify-v1-0/70/add-70px-512.png"
           alt="Create"
-          height="40" width="40"
+          height= "40" width="40"
           onClick={() => console.log("create category")}
         />
     </div>

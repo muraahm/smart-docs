@@ -3,31 +3,23 @@ import "components/styles.scss";
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import S3FileUpload from 'react-s3';
-
+// import { Storage } from 'aws-amplify'
 
 
 export default function ViewCategory(props) {
-
-  const userEmail = "a.murad@nomail.com"
-  const userCategory = "personal"
-
   const API_KEY = process.env.REACT_APP_access_key_id
   const secret_access = process.env.REACT_APP_secret_access_key
+  
+  const userEmail = "a.murad@nomail.com"
+  const userCategory = "personal"
+  
   const config = {
     bucketName: 'smart-docs',
-    dirName: `${userEmail} / ${userCategory}`,
+    dirName: `${userEmail}/${userCategory}`,
     region: 'ca-central-1',
     accessKeyId: API_KEY,
     secretAccessKey: secret_access,
   }
-
-  const upload = (e) => {
-    S3FileUpload
-      .uploadFile(e.target.files[0], config)
-      .then(data => console.log(data.location))
-      .catch(err => console.error(err))
-  }
-
   const currentAccountantName = 'Baccari Corporation Inc.'
   const currentCategoryName = "Personal"
 
@@ -58,7 +50,7 @@ export default function ViewCategory(props) {
     }
   ];
   const receipts = [
-    { id: 1, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 12, 2019", url: "https://smart-docs.s3.ca-central-1.amazonaws.com/a.murad%40nomail.com/personal/Nov.20%2C2019_1574297998734.gif" },
+    { id: 1, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 12, 2019", url: "https://smart-docs.s3.amazonaws.com/a.murad@nomail.com/personal/Screen Shot 2019-12-22 at 3.53.48 PM.png" },
     { id: 2, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 12, 2019", url: "https://smart-docs.s3.ca-central-1.amazonaws.com/a.murad%40nomail.com/personal/Nov.20%2C2019_1574297998734.gif" },
     { id: 3, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 12, 2019", url: "https://smart-docs.s3.ca-central-1.amazonaws.com/a.murad%40nomail.com/personal/Nov.20%2C2019_1574297998734.gif" },
     { id: 4, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 12, 2019", url: "https://smart-docs.s3.ca-central-1.amazonaws.com/a.murad%40nomail.com/personal/Nov.20%2C2019_1574297998734.gif" },
@@ -75,7 +67,26 @@ export default function ViewCategory(props) {
     { id: 15, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 12, 2019", url: "https://smart-docs.s3.ca-central-1.amazonaws.com/a.murad%40nomail.com/personal/Nov.20%2C2019_1574297998734.gif" }
   ]
 
+  const upload = (e) => {
+    S3FileUpload
+      .uploadFile(e.target.files[0], config)
+      .then(data => console.log(data.location))
+      .catch(err => console.error(err))
+  }
+
   const receiptsList = receipts.map(receipt => {
+
+    const photo = receipt.url
+    // Storage.get(`${userEmail}/${userCategory}/Screen Shot 2019-12-22 at 3.53.48 PM.png`)
+    // .then(data => {
+    //   console.log(data)
+    // })
+    // .catch( err => {
+    //   console.log('error fetching')
+    // })
+    // Storage.get('a.murad@nomail.com/personal')
+    //   .then(result => console.log(result))
+    //   .catch(err => console.log(err));
     return (
       <div className="receiptItem"
         key={receipt.id}
@@ -85,11 +96,12 @@ export default function ViewCategory(props) {
       >
         <img
           style={{ cursor: 'pointer' }}
-          src={receipt.url}
-          alt={receipt.purchaseDate}
-          height="80" width="80"
-          onClick={() => console.log("create category")}
+          src={photo}
+          alt="No Preview"
+          height="130" width="100"
+          onClick={() => console.log("view")}
         />
+        <div>{receipt.purchaseDate}</div>
       </div>
     )
   })

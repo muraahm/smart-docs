@@ -3,12 +3,13 @@ import "components/styles.scss";
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import S3FileUpload from 'react-s3';
-// import { Storage } from 'aws-amplify'
+import Amplify, { Storage } from 'aws-amplify'
 
 
 export default function ViewCategory(props) {
   const API_KEY = process.env.REACT_APP_access_key_id
   const secret_access = process.env.REACT_APP_secret_access_key
+  
   
   const userEmail = "a.murad@nomail.com"
   const userCategory = "personal"
@@ -76,7 +77,10 @@ export default function ViewCategory(props) {
 
   const receiptsList = receipts.map(receipt => {
 
+    
+
     const photo = receipt.url
+
     // Storage.get(`${userEmail}/${userCategory}/Screen Shot 2019-12-22 at 3.53.48 PM.png`)
     // .then(data => {
     //   console.log(data)
@@ -84,9 +88,9 @@ export default function ViewCategory(props) {
     // .catch( err => {
     //   console.log('error fetching')
     // })
-    // Storage.get('a.murad@nomail.com/personal')
-    //   .then(result => console.log(result))
-    //   .catch(err => console.log(err));
+    Amplify.Storage.get('a.murad@nomail.com/personal')
+      .then(result => console.log(result))
+      .catch(err => console.log(err));
     return (
       <div className="receiptItem"
         key={receipt.id}

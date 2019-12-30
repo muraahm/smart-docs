@@ -3,17 +3,19 @@ import "components/styles.scss";
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import S3FileUpload from 'react-s3';
-import Amplify, { Storage } from 'aws-amplify'
+// import Amplify, { Storage } from 'aws-amplify'
+// const AWS = require('aws-sdk');
+import AWS from 'aws-sdk'
 
 
 export default function ViewCategory(props) {
   const API_KEY = process.env.REACT_APP_access_key_id
   const secret_access = process.env.REACT_APP_secret_access_key
-  
-  
+
+
   const userEmail = "a.murad@nomail.com"
   const userCategory = "personal"
-  
+
   const config = {
     bucketName: 'smart-docs',
     dirName: `${userEmail}/${userCategory}`,
@@ -77,9 +79,41 @@ export default function ViewCategory(props) {
 
   const receiptsList = receipts.map(receipt => {
 
-    
 
-    const photo = receipt.url
+
+    // const photo = receipt.url
+    (async function () {
+      try {
+        AWS.config.setPromisesDependency();
+        AWS.config.update({
+          accessKeyId: process.env.REACT_APP_access_key_id,
+          secretAccessKey: process.env.REACT_APP_secret_access_key,
+          region: 'ca-central-1'
+        })
+        const s3 = new AWS.S3;
+        let get_pic_params = {
+          Bucket: 'smart-docs',
+          Key: "a.murad@nomail.com/personal"
+        }
+        const response = await s3.getObject(get_pic_params, function(err, data) {
+          if (err) {
+            console.log('error')
+          }
+          else {
+            console.log(data)
+          }
+        })
+      
+        // const response = await s3.listObjectsV2({
+        //   Bucket: 'smart-docs',
+        //   Prefix: 'a.murad@nomail.com/personal'
+        // }).promise();
+        // console.log(response)
+    
+      } catch (e) {
+        console.log('error', e)
+      }
+    })();
 
     // Storage.get(`${userEmail}/${userCategory}/Screen Shot 2019-12-22 at 3.53.48 PM.png`)
     // .then(data => {
@@ -88,9 +122,9 @@ export default function ViewCategory(props) {
     // .catch( err => {
     //   console.log('error fetching')
     // })
-    Amplify.Storage.get('a.murad@nomail.com/personal')
-      .then(result => console.log(result))
-      .catch(err => console.log(err));
+    // Amplify.Storage.get('a.murad@nomail.com/personal')
+    //   .then(result => console.log(result))
+    //   .catch(err => console.log(err));
     return (
       <div className="receiptItem"
         key={receipt.id}
@@ -100,7 +134,7 @@ export default function ViewCategory(props) {
       >
         <img
           style={{ cursor: 'pointer' }}
-          src={photo}
+          // src={photo}
           alt="No Preview"
           height="130" width="100"
           onClick={() => console.log("view")}

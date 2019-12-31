@@ -72,7 +72,7 @@
   justify-content: space-evenly;
 
   .categoryDetails {
-    height: 35px;
+    height: 30px;
     width: 90%;
     border-style: solid;
     border-color: rgb(174, 190, 156);
@@ -89,6 +89,20 @@
       align-items: center;
       width: 50%;
     }
+  }
+
+  .fileUpload {
+    height: 60px;
+    width: 90%;
+    border-style: solid;
+    border-color: rgb(174, 190, 156);
+    background-color: rgb(68, 92, 68);
+    display: inline-flex;
+    justify-content: space-around;
+    border-radius: 15px;
+    align-items: center;
+    font-size: large;
+    color: white;
   }
 
   .receiptItem {

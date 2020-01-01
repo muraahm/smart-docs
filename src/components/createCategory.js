@@ -53,7 +53,7 @@ export default function CreateCategory(props) {
           </MenuItem>
         ))}
       </TextField>
-      <div className="create" onClick={() => console.log("create category")}>Create</div>
+      <div className="create" onClick={() => props.create(category, accountant)}>Create</div>
     </div>
   );
 }

@@ -78,7 +78,7 @@ export default function ViewCategory(props) {
     }, function (err, data) {
       if (err) console.log('Error', err);
       else 
-      //post request to the server to sace name and upload date for retriving from AWS
+      //post request to the server to save upload date(name in AWS)name and upload date for retriving from AWS
       console.log('Successfully uploaded.');
     })
   };
@@ -135,7 +135,7 @@ export default function ViewCategory(props) {
               <input type="file" onChange={onChange} />
             </div>
             <div>
-              <button type='button' onClick={upload}>Upload</button>
+              <button type='button' onClick={upload}>Upload ==> </button>
               <input type="text" placeholder='Add file name' onChange={onChange}></input>
             </div>
           </form>

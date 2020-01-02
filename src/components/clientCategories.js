@@ -1,16 +1,11 @@
 import React from 'react';
 import "components/styles.scss";
-import { useApplicationData } from "hooks/useApplicationData";
 
 export default function Clientcategories(props) {
-  const {
-    state,
-    createCategory
-  } = useApplicationData();
 
   const categories = props.categories
-  console.log(categories)
   const categoryList = categories.map(category => {
+
     return (
       <div className="categoryItem"
         key={category.id}

@@ -5,29 +5,11 @@ import MenuItem from '@material-ui/core/MenuItem';
 import AWS from 'aws-sdk'
 
 export default function ViewCategory(props) {
-  const userEmail = "a.murad@nomail.com"
-  const userCategory = "personal"
-  const currentAccountantName = 'Baccari Corporation Inc.'
-  const currentCategoryName = "Personal"
-  const [accountant, setAccountant] = React.useState(currentAccountantName || '');
-  const accountants = [
-    {
-      value: accountant
-    },
-    {
-      value: 'USD'
-    },
-    {
-      value: 'EUR'
-    },
-    {
-      value: 'BTC'
-    },
-
-    {
-      value: 'JPY'
-    }
-  ];
+  const userEmail = props.userInfo.email
+  const userCategory = props.categoryName
+  const currentAccountantCompany = props.accountantCompany
+  const [accountant, setAccountant] = React.useState(currentAccountantCompany || '');
+  const accountants = props.accountants
   const receipts = [
     { id: 1, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 12, 2019" },
     { id: 2, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 13, 2019" },
@@ -77,7 +59,8 @@ export default function ViewCategory(props) {
       ACL: 'public-read'
     }, function (err, data) {
       if (err) console.log('Error', err);
-      else 
+      else
+       
       //post request to the server to save upload date(name in AWS)name and upload date for retriving from AWS
       console.log('Successfully uploaded.');
     })
@@ -112,7 +95,7 @@ export default function ViewCategory(props) {
   return (
     <div className="receiptsList">
       <div className="categoryDetails">
-        <div>Category: {currentCategoryName}</div>
+        <div>Category: {userCategory}</div>
         <div className="changeAccountant">Accountant:
         <TextField
             id="standard-multiline-flexible"
@@ -121,8 +104,8 @@ export default function ViewCategory(props) {
             onChange={handleChangeAccountant}
           >
             {accountants.map(option => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.value}
+              <MenuItem key={option.id} value={option.company}>
+                {option.company}
               </MenuItem>
             ))}
           </TextField>

@@ -5,19 +5,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 export default function CreateCategory(props) {
 
-  const accountants = [
-    {
-      value: 'USD'
-    },
-    {
-      value: 'EUR'
-    },
-    {
-      value: 'BTC'
-    },
-    {
-      value: 'JPY'}
-  ];
+  const accountants = props.accountants;
 
   const [accountant, setAccountant] = React.useState('');
   const handleChangeAccountant = event => {
@@ -48,8 +36,8 @@ export default function CreateCategory(props) {
         onChange={handleChangeAccountant}
       >
         {accountants.map(option => (
-          <MenuItem key={option.value} value={option.value}>
-            {option.value}
+          <MenuItem key={option.id} value={option.company}>
+            {option.company}
           </MenuItem>
         ))}
       </TextField>

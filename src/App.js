@@ -25,8 +25,6 @@ function App() {
     localStorage.setItem("together::token", state.userInfo.token)
   }
 
-  const token = localStorage.getItem("together::token")
-
 
   return (
     <div className="App">

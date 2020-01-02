@@ -1,34 +1,40 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import NavBar from "components/Navbar/Navbar";
-import Clientcategories from "components/clientCategories"
 import UserCategoryManagment from "components/userCategoryManagment"
 import './styles.scss';
 import { useApplicationData } from "hooks/useApplicationData";
 import useVisualMode from "hooks/useVisualMode";
-const PROFILE = 'PROFILE';
+import { propStyle } from 'aws-amplify-react';
+
 
 function App() {
   // const { mode, transition, back } = useVisualMode(PROFILE);
   const {
     state,
     login,
-    createCategory
+    register,
+    logout,
+    createCategory,
+    listUserCategories
   } = useApplicationData();
 
-
-  useEffect(() => {
-    login("testEmailTest@test.com", "testPassword")
-    // .then(createCategory("personal", "testEmailTest@test.com", 1))
-  }, []);
+  console.log(state)
 
   let mode = state.userInfo.name ? "LOGGEDIN" : "LOGGEDOUT";
+  localStorage.setItem("together::token", state.userInfo.token)
+  const token = localStorage.getItem("together::token")
 
   return (
     <div className="App">
-      <NavBar name={state.userInfo.name}></NavBar>
+      <NavBar login={login} register={register} state={state} logout={logout}></NavBar>
       {mode === "LOGGEDIN" && (
-        <UserCategoryManagment categories={state.userCategories} userInfo={state.userInfo}></UserCategoryManagment>
-        )}
+        <UserCategoryManagment
+          state={state}
+          createCategory={createCategory}
+          listUserCategories={listUserCategories}
+        >
+        </UserCategoryManagment>
+      )}
     </div>
   );
 }

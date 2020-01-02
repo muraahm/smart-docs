@@ -18,11 +18,15 @@ function App() {
     listUserCategories
   } = useApplicationData();
 
-  console.log(state)
 
-  let mode = state.userInfo.name ? "LOGGEDIN" : "LOGGEDOUT";
-  localStorage.setItem("together::token", state.userInfo.token)
+  let mode = state.userInfo && state.userInfo.name ? "LOGGEDIN" : "LOGGEDOUT";
+
+  if (state.userInfo && state.userInfo.token) {
+    localStorage.setItem("together::token", state.userInfo.token)
+  }
+
   const token = localStorage.getItem("together::token")
+
 
   return (
     <div className="App">

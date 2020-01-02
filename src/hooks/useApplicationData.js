@@ -17,6 +17,7 @@ export function useApplicationData() {
     return axios.post(`${config.API_PATH}/api/login/`, { email, password })
       .then(response => {
         const userInfo = response.data;
+        console.log(response.data)
         dispatch({ type: SET_USER_INFO, value: userInfo });
       })
       .then(
@@ -46,6 +47,7 @@ export function useApplicationData() {
   const logout = () => {
     const userInfo = {};
     const userCategories = [];
+    localStorage.removeItem("together::token")
     dispatch({ type: SET_USER_INFO, SET_USER_CATEGORIES, value: userInfo, userCategories });
   }
 
@@ -74,23 +76,21 @@ export function useApplicationData() {
     const token = localStorage.getItem("together::token");
     Promise.all([
       axios.get(`${config.API_PATH}/api/accountants`),
-      axios.post(`${config.API_PATH}/api/user`, { token }),
-      axios.get(`${config.API_PATH}/api/user/categories/`, { token })
+      axios.post(`${config.API_PATH}/api/user`, { token })
     ])
       .then((all) => {
-        console.log(all[0].data)
         dispatch({
           type: SET_APP_DATA,
           value: {
             accountants: all[0].data,
-            userInfo: all[1].data,
-            userCategories: all[2].data
+            userInfo: all[1].data.userInfo,
+            userCategories: all[1].data.categories
           }
-          
+
         });
       })
       .catch(err => {
-        console.log(err.response.status);
+        // console.log(err.response.status);
         // console.log(err.response.headers);
         // console.log(err.response.data);
       });

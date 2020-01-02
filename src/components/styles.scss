@@ -1,5 +1,8 @@
 .categoryList {
-  margin-left: 67%;
+  // margin-left: 67%;
+  float: right;
+  margin-right: 5%;
+  margin-left: auto;
   margin-top: 2%;
   text-align: center;
   padding-top: 10px;
@@ -60,16 +63,20 @@
     }
   }
 }
+.main {
+  display: inline-flex;
+}
 
 .receiptsList {
+  margin-top: 2%;
+  margin-left: auto;
+  margin-right: auto;
   // text-align: center;
   // padding-top: 10px;
   background-color: rgb(155, 182, 155);
   border-radius: 15px;
-  height: 35rem;
-  width: 70%;
-  // background-repeat: no-repeat;
-  // background-size: cover;
+  height: 80vh;
+  width: 60%;
   display: flex;
   flex-wrap: wrap;
   overflow-y: auto;

@@ -11,30 +11,29 @@ const CREATE = "CREATE"
 
 export default function UserCategoryManagment(props) {
   const { mode, transition, back } = useVisualMode(LIST);
-  const {
-    createCategory,
-    listUserCategories
-  } = useApplicationData();
 
 
   const createView = () => {
     transition(CREATE)
   }
 
+  // const back = () => {
+
+  // }
+
   const create = (category, accountant_company) => {
-    createCategory(category, props.userInfo.email, accountant_company)
-      .then(() => listUserCategories(props.userInfo.email))
+    props.createCategory(category, props.state.userInfo.email, accountant_company)
+      .then(() => props.listUserCategories(props.state.userInfo.email))
       .then(transition(LIST))
   }
 
-
   return (
     <div>
-      {mode === "LIST" && (
-        <Clientcategories categories={props.categories} createView={createView}></Clientcategories>
+      {mode === "LIST" && props.state.userCategories && (
+        <Clientcategories categories={props.state.userCategories} createView={createView}></Clientcategories>
       )}
       {mode === "CREATE" && (
-        <CreateCategory create={create}></CreateCategory>
+        <CreateCategory create={create} accountants={props.state.accountants}></CreateCategory>
       )}
 
     </div>

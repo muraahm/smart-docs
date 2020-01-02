@@ -12,7 +12,7 @@ export default function NavBar(props) {
     logout,
     state
   } = useApplicationData();
-  let mode = props.state.userInfo.name ? "LOGGEDIN" : "LOGGEDOUT";
+  let mode = props.state.userInfo && props.state.userInfo.name ? "LOGGEDIN" : "LOGGEDOUT";
 
 
   const [name, setName] = React.useState('');

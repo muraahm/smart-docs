@@ -20,13 +20,14 @@ export default function CreateCategory(props) {
   return (
     <div className="newCategory">
       <TextField
-          id="standard-multiline-flexible"
-          label="Category"
-          multiline
-          rowsMax="4"
-          value={category}
-          onChange={handleChangeCategoryName}
-        />
+        required={true}
+        id="standard-multiline-flexible"
+        label="Category"
+        multiline
+        rowsMax="4"
+        value={category}
+        onChange={handleChangeCategoryName}
+      />
 
       <TextField
         id="standard-multiline-flexible"

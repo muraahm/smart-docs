@@ -2,6 +2,7 @@ const SET_USER_INFO = "SET_USER_INFO"
 const SET_USER_CATEGORIES = "SET_USER_CATEGORIES"
 const SET_ACCOUNTANTS = "SET_ACCOUNTANTS"
 const SET_APP_DATA = "SET_APP_DATA"
+const SET_USER_RECIEPTS = "SET_USER_RECIEPTS"
 
 function reducer(state, action) {
 
@@ -12,6 +13,9 @@ function reducer(state, action) {
 
     case SET_USER_CATEGORIES:
       return { ...state, userCategories: action.value }
+
+      case SET_USER_RECIEPTS:
+        return { ...state, userReciepts: action.value}
 
     case SET_ACCOUNTANTS:
       return { ...state, accountants: action.value }
@@ -37,5 +41,6 @@ export {
   SET_USER_INFO,
   SET_USER_CATEGORIES,
   SET_ACCOUNTANTS,
-  SET_APP_DATA
+  SET_APP_DATA,
+  SET_USER_RECIEPTS
 };

@@ -3,38 +3,26 @@ import "components/styles.scss";
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import AWS from 'aws-sdk'
+import axios from "axios";
+import config from '../config'
 
 export default function ViewCategory(props) {
+
   const userEmail = props.userInfo.email
   const userCategory = props.categoryName
   const currentAccountantCompany = props.accountantCompany
   const [accountant, setAccountant] = React.useState(currentAccountantCompany || '');
   const accountants = props.accountants
-  const receipts = [
-    { id: 1, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 12, 2019" },
-    { id: 2, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 13, 2019" },
-    { id: 3, uploadDate: "Mon Dec 30 2019 23:30:23 GMT-0700 (Mountain Standard Time)", purchaseDate: "Oct. 14, 2019" },
-    { id: 4, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 15, 2019" },
-    { id: 5, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 16, 2019" },
-    { id: 6, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 17, 2019" },
-    { id: 7, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 18, 2019" },
-    { id: 8, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 19, 2019" },
-    { id: 9, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 20, 2019" },
-    { id: 10, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 21, 2019" },
-    { id: 11, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 22, 2019" },
-    { id: 12, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 23, 2019" },
-    { id: 13, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 24, 2019" },
-    { id: 14, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 25, 2019" },
-    { id: 15, uploadDate: "Oct. 12, 2019", purchaseDate: "Oct. 26, 2019" }
-  ]
+  const receipts = props.state.userReciepts
 
 
   const handleChangeAccountant = event => {
     setAccountant(event.target.value);
   };
 
-  const changeAccountnat = (value) => {
-    console.log("changed to:" + value)
+  const changeAccountnat = (accountnat, categoryId) => {
+    axios.post(`${config.API_PATH}/api/user/change/accountnat`, { accountant, categoryId })
+      .then(response => {})
   }
 
   AWS.config.update({ //passing keys for bucket access.
@@ -47,81 +35,98 @@ export default function ViewCategory(props) {
 
   const [photo, setPhoto] = React.useState('');
   const [photoName, setPhotoName] = React.useState('');
-  const onChange = (e) => {
-    setPhotoName(e.target.value)
+  const onChangeFile = (e) => {
     setPhoto(e.target.files[0])
   }
-  const upload = () => { //upload file function.
-    s3.putObject({
-      Bucket: process.env.REACT_APP__BUCKET,
-      Key: `${userEmail}/${userCategory}/${new Date()}.png`,//save file name with date and time with seconds.
-      Body: photo,
-      ACL: 'public-read'
-    }, function (err, data) {
-      if (err) console.log('Error', err);
-      else
-       
-      //post request to the server to save upload date(name in AWS)name and upload date for retriving from AWS
-      console.log('Successfully uploaded.');
-    })
+
+  const onChangeName = (e) => {
+    setPhotoName(e.target.value)
+  }
+  const upload = (categoryId, userId) => { //upload file function.
+    const uploadDate = new Date()
+    //post request to the server to save upload date(name in AWS)name and upload date for retriving from AWS
+    axios.post(`${config.API_PATH}/api/user/reciept/upload`, { uploadDate, photoName, categoryId, userId })
+      .then(response => {
+        s3.putObject({
+          Bucket: process.env.REACT_APP__BUCKET,
+          Key: `${userEmail}/${userCategory}/${response.data.id}.png`,//save file name with date and time with seconds.
+          Body: photo,
+          ACL: 'public-read'
+        }, function (err, data) {
+          if (err) console.log('Error', err);
+          props.getReceipts(categoryId, userId)
+          console.log('Successfully uploaded.');
+        })
+      })
+
   };
 
 
   const receiptsList = receipts.map(receipt => {
     const url = s3.getSignedUrl('getObject', { //generate url to display photo by passing user email, category and photo name(date and time with seconds).
       Bucket: process.env.REACT_APP__BUCKET,
-      Key: `${userEmail}/${userCategory}/${receipt.uploadDate}.png`
+      Key: `${userEmail}/${userCategory}/${receipt.id}.png`
     })
 
     return (
       <div className="receiptItem"
         key={receipt.id}
         id={receipt.id}
-        uploaddate={receipt.uploadDate}
-        purchasedate={receipt.purchaseDate}
+        uploaddate={receipt.upload_date}
+        name={receipt.name}
       >
-        <img
-          style={{ cursor: 'pointer' }}
-          src={url} // generated url from getSignedUrl
-          alt="No Preview"
-          height="130" width="100"
-          onClick={() => console.log("view")}
-        />
-        <div>{receipt.purchaseDate}</div>
+        <a href={url}>
+          <img
+            style={{ cursor: 'pointer' }}
+            src={url} // generated url from getSignedUrl
+            alt="No Preview"
+            height="130" width="100"
+          />
+        </a>
+
+        <div>{receipt.name}</div>
       </div>
     )
   })
 
   return (
     <div className="receiptsList">
-      <div className="categoryDetails">
-        <div>Category: {userCategory}</div>
-        <div className="changeAccountant">Accountant:
+      <div style={{ width: "100%" }}>
+        <div className="categoryDetails">
+          <div>Category: {userCategory}</div>
+          <div className="changeAccountant">Accountant:
         <TextField
-            id="standard-multiline-flexible"
-            select
-            value={accountant}
-            onChange={handleChangeAccountant}
-          >
-            {accountants.map(option => (
-              <MenuItem key={option.id} value={option.company}>
-                {option.company}
-              </MenuItem>
-            ))}
-          </TextField>
-          <div onClick={() => { changeAccountnat(accountant) }} style={{ float: "right" }}>Save</div></div>
-      </div>
-      <div className="fileUpload">
-        <div>
-          <form onSubmit={upload}>
-            <div>
-              <input type="file" onChange={onChange} />
-            </div>
-            <div>
-              <button type='button' onClick={upload}>Upload ==> </button>
-              <input type="text" placeholder='Add file name' onChange={onChange}></input>
-            </div>
-          </form>
+              id="standard-multiline-flexible"
+              select
+              value={accountant}
+              onChange={handleChangeAccountant}
+            >
+              {accountants.map(option => (
+                <MenuItem key={option.id} value={option.company}>
+                  {option.company}
+                </MenuItem>
+              ))}
+            </TextField>
+            <div onClick={() => { changeAccountnat(accountant, props.categoryId) }} style={{ float: "right", cursor: "pointer" }}>Save</div></div>
+        </div>
+        <div className="fileUpload">
+          <div>
+            <form onSubmit={upload}>
+              <div>
+                <input type="file" onChange={onChangeFile} />
+              </div>
+              <div>
+                <button type='button' onClick={() => upload(props.categoryId, props.userInfo.id)}>Upload ==> </button>
+                <div><TextField
+                        id="standard-multiline-flexible"
+                        label="Enter receipt name"
+                        multiline
+                        rowsMax="4"
+                        onChange={onChangeName}
+                      /></div>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
       {receiptsList}

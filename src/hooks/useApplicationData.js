@@ -1,7 +1,14 @@
 import axios from "axios";
 import config from '../config'
 import { useEffect, useReducer } from "react";
-import { reducer, SET_USER_INFO, SET_USER_CATEGORIES, SET_ACCOUNTANTS, SET_APP_DATA } from "../reducer/application";
+import {
+  reducer,
+  SET_USER_INFO,
+  SET_USER_CATEGORIES,
+  SET_ACCOUNTANTS,
+  SET_APP_DATA,
+  SET_USER_RECIEPTS
+} from "../reducer/application";
 
 export function useApplicationData() {
   const [state, dispatch] = useReducer(reducer,
@@ -9,7 +16,8 @@ export function useApplicationData() {
       // INIT STATE
       userInfo: {},
       userCategories: [],
-      accountants: []
+      accountants: [],
+      userReciepts: []
     }
   );
 
@@ -17,7 +25,6 @@ export function useApplicationData() {
     return axios.post(`${config.API_PATH}/api/login/`, { email, password })
       .then(response => {
         const userInfo = response.data;
-        console.log(response.data)
         dispatch({ type: SET_USER_INFO, value: userInfo });
       })
       .then(
@@ -34,6 +41,14 @@ export function useApplicationData() {
           })
       )
   };
+
+  const getReceipts = (categoryId, userId) => {
+    return axios.post(`${config.API_PATH}/api/user/reciepts`, { categoryId, userId })
+      .then(response => {
+        const userReciepts = response.data
+        dispatch({ type: SET_USER_RECIEPTS, value: userReciepts });
+      })
+  }
 
   const listUserCategories = (email) => {
     axios.get(`${config.API_PATH}/api/user/categories/list/${email}`, { email })
@@ -105,6 +120,8 @@ export function useApplicationData() {
     register,
     logout,
     createCategory,
-    listUserCategories
+    listUserCategories,
+    getReceipts,
+    dispatch
   };
 };

@@ -5,6 +5,7 @@ export default function Clientcategories(props) {
 
   const categories = props.categories
   const categoryList = categories.map(category => {
+
     
 
     return (
@@ -13,7 +14,7 @@ export default function Clientcategories(props) {
         id={category.id}
         categoryname={category.name}
         accountantcompany={category.accountant_company}
-        onClick={() => props.viewCategory(category.name, category.accountant_company)}
+        onClick={() => props.viewCategory(category, category.accountant_company)}
       >{category.name}</div>
     )
   })

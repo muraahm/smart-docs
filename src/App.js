@@ -3,8 +3,6 @@ import NavBar from "components/Navbar/Navbar";
 import UserCategoryManagment from "components/userCategoryManagment"
 import './styles.scss';
 import { useApplicationData } from "hooks/useApplicationData";
-import useVisualMode from "hooks/useVisualMode";
-import { propStyle } from 'aws-amplify-react';
 
 
 function App() {

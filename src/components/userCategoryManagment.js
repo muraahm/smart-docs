@@ -1,10 +1,10 @@
 import React from 'react';
 import "components/styles.scss";
-import { useApplicationData } from "hooks/useApplicationData";
 import Clientcategories from "components/clientCategories"
 import CreateCategory from "components/createCategory";
 import ViewCategory from "components/viewCategory"
 import useVisualMode from "hooks/useVisualMode";
+import { useApplicationData } from "hooks/useApplicationData";
 
 const LIST = "LIST"
 const CREATE = "CREATE"
@@ -12,7 +12,13 @@ const VIEWCATEGORY = "VIEWCATEGORY"
 
 
 export default function UserCategoryManagment(props) {
-  const { mode, transition, back } = useVisualMode(LIST);
+  const { mode, transition } = useVisualMode(LIST);
+
+  const {
+    getReceipts,
+    state
+  } = useApplicationData();
+
 
 
   const createView = () => {
@@ -29,11 +35,13 @@ export default function UserCategoryManagment(props) {
       .then(transition(LIST))
   }
   const [accountantCompany, setAccountantCompany] = React.useState('');
-  const [categoryName, setCategoryName] = React.useState('');
-  const viewCategory = (categoryName, accountantCompany) => {
+  const [category, setCategory] = React.useState('');
+  const viewCategory = (category, accountantCompany) => {
+
     setAccountantCompany(accountantCompany)
-    setCategoryName(categoryName)
-    transition(VIEWCATEGORY)
+    setCategory(category)
+    getReceipts(category.id, props.state.userInfo.id)
+      .then(transition(VIEWCATEGORY))
   }
 
   return (
@@ -48,8 +56,11 @@ export default function UserCategoryManagment(props) {
       {mode === "VIEWCATEGORY" && props.state.userCategories && (
         <div className="main">
           <ViewCategory
+            getReceipts={getReceipts}
+            state={state}
             accountantCompany={accountantCompany}
-            categoryName={categoryName}
+            categoryName={category.name}
+            categoryId={category.id}
             accountants={props.state.accountants}
             userInfo={props.state.userInfo}
           // receipts={props.state.receipts}

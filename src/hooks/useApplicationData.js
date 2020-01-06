@@ -21,6 +21,23 @@ export function useApplicationData() {
     }
   );
 
+  const registerAccountant = (name, accountantCompany, email, password) => {
+    return axios.put(`${config.API_PATH}/api/accountant/register`, { name, accountantCompany, email, password })
+      .then(response => {
+        const userInfo = response.data;
+        dispatch({ type: SET_USER_INFO, value: userInfo });
+      })
+  }
+
+  const loginAccountant = (email, password) => {
+    return axios.post(`${config.API_PATH}/api/accountant/login`, { email, password })
+      .then(response => {
+        const userInfo = response.data;
+        dispatch({ type: SET_USER_INFO, value: userInfo });
+      })
+
+  }
+
   const login = (email, password) => {
     return axios.post(`${config.API_PATH}/api/login/`, { email, password })
       .then(response => {
@@ -89,26 +106,31 @@ export function useApplicationData() {
 
   useEffect(() => {
     const token = localStorage.getItem("together::token");
-    Promise.all([
-      axios.get(`${config.API_PATH}/api/accountants`),
-      axios.post(`${config.API_PATH}/api/user`, { token })
-    ])
-      .then((all) => {
-        dispatch({
-          type: SET_APP_DATA,
-          value: {
-            accountants: all[0].data,
-            userInfo: all[1].data.userInfo,
-            userCategories: all[1].data.categories
-          }
 
+    if (state.userInfo && !state.userInfo.company) {
+      Promise.all([
+        axios.get(`${config.API_PATH}/api/accountants`),
+        axios.post(`${config.API_PATH}/api/user`, { token })
+      ])
+        .then((all) => {
+          dispatch({
+            type: SET_APP_DATA,
+            value: {
+              accountants: all[0].data,
+              userInfo: all[1].data.userInfo,
+              userCategories: all[1].data.categories
+            }
+
+          });
+        })
+        .catch(err => {
+          // console.log(err.response.status);
+          // console.log(err.response.headers);
+          // console.log(err.response.data);
         });
-      })
-      .catch(err => {
-        // console.log(err.response.status);
-        // console.log(err.response.headers);
-        // console.log(err.response.data);
-      });
+
+    }
+      
 
   }, []);
 
@@ -122,6 +144,8 @@ export function useApplicationData() {
     createCategory,
     listUserCategories,
     getReceipts,
-    dispatch
+    dispatch,
+    registerAccountant,
+    loginAccountant
   };
 };

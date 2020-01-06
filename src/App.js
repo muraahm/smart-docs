@@ -13,8 +13,12 @@ function App() {
     register,
     logout,
     createCategory,
-    listUserCategories
+    listUserCategories,
+    loginAccountant,
+    registerAccountant
   } = useApplicationData();
+
+  console.log(state)
 
 
   let mode = state.userInfo && state.userInfo.name ? "LOGGEDIN" : "LOGGEDOUT";
@@ -26,7 +30,14 @@ function App() {
 
   return (
     <div className="App">
-      <NavBar login={login} register={register} state={state} logout={logout}></NavBar>
+      <NavBar
+        login={login}
+        register={register}
+        loginAccountant={loginAccountant}
+        registerAccountant={registerAccountant}
+        state={state}
+        logout={logout}>
+      </NavBar>
       {mode === "LOGGEDIN" && (
         <UserCategoryManagment
           state={state}

@@ -18,12 +18,15 @@ function App() {
     registerAccountant
   } = useApplicationData();
 
-  console.log(state)
-
 
   let mode = state.userInfo && state.userInfo.name ? "LOGGEDIN" : "LOGGEDOUT";
 
   if (state.userInfo && state.userInfo.token) {
+    if (state.userInfo.company) {
+      localStorage.setItem("together::accountant", 'yes')
+    }
+    else
+      localStorage.setItem("together::accountant", 'no')
     localStorage.setItem("together::token", state.userInfo.token)
   }
 

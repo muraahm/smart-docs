@@ -69,9 +69,12 @@ export default function ViewCategory(props) {
           Body: photo,
           ACL: 'public-read'
         }, function (err, data) {
-          if (err) console.log('Error', err);
-          props.getReceipts(categoryId, userId)
-          console.log('Successfully uploaded.');
+          if (err)
+            alert('Sorry, Something went wrong.');
+          else {
+            props.getReceipts(categoryId, userId)
+            alert('Successfully uploaded.');
+          }
         })
       })
 

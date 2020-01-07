@@ -24,6 +24,8 @@ export function useApplicationData() {
   const registerAccountant = (name, accountantCompany, email, password) => {
     return axios.put(`${config.API_PATH}/api/accountant/register`, { name, accountantCompany, email, password })
       .then(response => {
+        if (response.data.meassage)
+          alert(response.data.meassage);
         const userInfo = response.data;
         dispatch({ type: SET_USER_INFO, value: userInfo });
       })
@@ -32,6 +34,8 @@ export function useApplicationData() {
   const loginAccountant = (email, password) => {
     return axios.post(`${config.API_PATH}/api/accountant/login`, { email, password })
       .then(response => {
+        if (response.data.meassage)
+          alert(response.data.meassage);
         const userInfo = response.data;
         dispatch({ type: SET_USER_INFO, value: userInfo });
       })
@@ -41,6 +45,8 @@ export function useApplicationData() {
   const login = (email, password) => {
     return axios.post(`${config.API_PATH}/api/login/`, { email, password })
       .then(response => {
+        if (response.data.meassage)
+          alert(response.data.meassage);
         const userInfo = response.data;
         dispatch({ type: SET_USER_INFO, value: userInfo });
       })
@@ -99,9 +105,10 @@ export function useApplicationData() {
   const register = (name, email, password) => {
     return axios.put(`${config.API_PATH}/api/users/register`, { name, email, password })
       .then(response => {
+        if (response.data.meassage)
+          alert(response.data.meassage);
         const userInfo = response.data;
         dispatch({ type: SET_USER_INFO, value: userInfo });
-
       })
   }
 
@@ -132,7 +139,7 @@ export function useApplicationData() {
             // console.log(err.response.data);
           });
       }
-//use effect api call if accountant logged in
+      //use effect api call if accountant logged in
       if (isAccountant === 'yes') {
         axios.post(`${config.API_PATH}/api/accountant`, { token })
           .then(response => {

@@ -1,12 +1,12 @@
 import React from 'react';
 import NavBar from "components/Navbar/Navbar";
 import UserCategoryManagment from "components/userCategoryManagment"
+import ClientCategoryManagment from "components/clientCategoryManagment"
 import './styles.scss';
 import { useApplicationData } from "hooks/useApplicationData";
 
 
 function App() {
-  // const { mode, transition, back } = useVisualMode(PROFILE);
   const {
     state,
     login,
@@ -17,7 +17,6 @@ function App() {
     loginAccountant,
     registerAccountant
   } = useApplicationData();
-
 
   let mode = state.userInfo && state.userInfo.name ? "LOGGEDIN" : "LOGGEDOUT";
 
@@ -41,14 +40,22 @@ function App() {
         state={state}
         logout={logout}>
       </NavBar>
-      {mode === "LOGGEDIN" && (
-        <UserCategoryManagment
-          state={state}
-          createCategory={createCategory}
-          listUserCategories={listUserCategories}
-        >
-        </UserCategoryManagment>
-      )}
+      {mode === "LOGGEDIN" && !state.userInfo.company &&
+        (
+          <UserCategoryManagment
+            state={state}
+            createCategory={createCategory}
+            listUserCategories={listUserCategories}
+          >
+          </UserCategoryManagment>
+        )}
+      {mode === "LOGGEDIN" && state.userInfo.company &&
+        (
+          <ClientCategoryManagment
+            state={state}
+          >
+          </ClientCategoryManagment>
+        )}
     </div>
   );
 }

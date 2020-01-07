@@ -7,11 +7,11 @@ export default function CreateCategory(props) {
 
   const accountants = props.accountants;
 
+  //handle create category inputs for the api call to server
   const [accountant, setAccountant] = React.useState('');
   const handleChangeAccountant = event => {
     setAccountant(event.target.value);
   };
-
   const [category, setCategoryName] = React.useState('');
   const handleChangeCategoryName = event => {
     setCategoryName(event.target.value);

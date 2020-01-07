@@ -16,7 +16,8 @@ export default function ViewCategory(props) {
 
   const receipts = props.receipts
   const receiptsList = receipts.map(receipt => {
-    const url = s3.getSignedUrl('getObject', { //generate url to display photo by passing user email, category and photo name(date and time with seconds).
+    //generate url to display photo by passing user email, category and file id from the database.
+    const url = s3.getSignedUrl('getObject', {
       Bucket: process.env.REACT_APP__BUCKET,
       Key: `${userEmail}/${userCategory}/${receipt.id}.png`
     })
@@ -47,8 +48,8 @@ export default function ViewCategory(props) {
       <div style={{ width: "100%" }}>
         <div className="categoryDetails">
           <div>
-          <div>Category: {userCategory}</div>
-          <div>Client: {props.userName}</div>
+            <div>Category: {userCategory}</div>
+            <div>Client: {props.userName}</div>
           </div>
         </div>
       </div>

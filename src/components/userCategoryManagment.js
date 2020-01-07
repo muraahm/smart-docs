@@ -6,43 +6,46 @@ import ViewCategory from "components/viewCategory"
 import useVisualMode from "hooks/useVisualMode";
 import { useApplicationData } from "hooks/useApplicationData";
 
+//transitioning modes
 const LIST = "LIST"
 const CREATE = "CREATE"
 const VIEWCATEGORY = "VIEWCATEGORY"
 
 
 export default function UserCategoryManagment(props) {
+  
   const { mode, transition } = useVisualMode(LIST);
-
   const {
     getReceipts,
     state
   } = useApplicationData();
 
-
-
+  //transition to creat component
   const createView = () => {
     transition(CREATE)
   }
 
-  // const back = () => {
 
-  // }
-
+  //api call to server for creating new category and transition to list categories
   const create = (category, accountant_company) => {
     props.createCategory(category, props.state.userInfo.email, accountant_company)
       .then(() => props.listUserCategories(props.state.userInfo.email))
       .then(transition(LIST))
   }
+
+
+  //handle view single category functionality
   const [accountantCompany, setAccountantCompany] = React.useState('');
   const [category, setCategory] = React.useState('');
   const viewCategory = (category, accountantCompany) => {
-
     setAccountantCompany(accountantCompany)
     setCategory(category)
     getReceipts(category.id, props.state.userInfo.id)
       .then(transition(VIEWCATEGORY))
   }
+
+  // const back = () => {
+  // }
 
   return (
     <div>
@@ -63,7 +66,6 @@ export default function UserCategoryManagment(props) {
             categoryId={category.id}
             accountants={props.state.accountants}
             userInfo={props.state.userInfo}
-          // receipts={props.state.receipts}
           ></ViewCategory>
           <Clientcategories
             categories={props.state.userCategories}

@@ -6,8 +6,7 @@ export default function Clientcategories(props) {
   const categories = props.categories
   const categoryList = categories.map(category => {
 
-    
-
+    //generate categories for the client view
     return (
       <div className="categoryItem"
         key={category.id}
@@ -19,6 +18,7 @@ export default function Clientcategories(props) {
     )
   })
 
+  //categories main view
   return (
     <div className="categoryList">
       {categoryList}

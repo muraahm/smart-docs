@@ -7,19 +7,18 @@ import TextField from '@material-ui/core/TextField';
 
 
 export default function NavBar(props) {
+  // nav bar to recognice if user loggedin or not
   let mode = props.state.userInfo && props.state.userInfo.name ? "LOGGEDIN" : "LOGGEDOUT";
 
-
+  //handle registeration and login
   const [name, setName] = React.useState('');
   const handleChangeName = event => {
     setName(event.target.value);
   };
-
   const [accountantCompany, setAccountantCompany] = React.useState('');
   const handleChangeAccountantCompany = event => {
     setAccountantCompany(event.target.value);
   };
-
   const [email, setEmail] = React.useState('');
   const handleChangeEmail = event => {
     setEmail(event.target.value);
@@ -29,18 +28,20 @@ export default function NavBar(props) {
     setPassword(event.target.value);
   };
 
+
+  //client registeration and login
   const registerUser = () => {
     props.register(name, email, password)
   }
-
-  const registerAccontant = () => {
-    props.registerAccountant(name, accountantCompany, email, password)
-  }
-
   const loginUser = () => {
     props.login(email, password)
   }
 
+
+  //accountant registeration and login
+  const registerAccontant = () => {
+    props.registerAccountant(name, accountantCompany, email, password)
+  }
   const loginAccountant = () => {
     props.loginAccountant(email, password)
   }
@@ -52,6 +53,7 @@ export default function NavBar(props) {
       {mode === "LOGGEDOUT" && (
         <div className="notLoggedInMenu">
           <div className='hamburgerMenu'>
+            {/* small screen and mobile view nave bar */}
             <Collapsible trigger="Start Here">
               <div className="accountant">Client
               <Popup trigger={<div className="auth">Register</div>} modal>
@@ -94,8 +96,6 @@ export default function NavBar(props) {
                     </div>
                   )}
                 </Popup>
-
-
                 <Popup trigger={<div className="auth">Login</div>} modal>
                   {close => (
                     <div className="modal">
@@ -142,12 +142,12 @@ export default function NavBar(props) {
                         onChange={handleChangeName}
                       /></div>
                       <div><TextField
-                          id="standard-multiline-flexible"
-                          label="Company"
-                          multiline
-                          rowsMax="4"
-                          onChange={handleChangeAccountantCompany}
-                        />
+                        id="standard-multiline-flexible"
+                        label="Company"
+                        multiline
+                        rowsMax="4"
+                        onChange={handleChangeAccountantCompany}
+                      />
                       </div>
                       <div>
                         <TextField
@@ -209,6 +209,8 @@ export default function NavBar(props) {
               </div>
             </Collapsible>
           </div>
+
+          {/* bigger screens view */}
           <div className='dropMenus'>
             <div className="menu">
               <Collapsible trigger="Client">
@@ -250,8 +252,6 @@ export default function NavBar(props) {
                     </div>
                   )}
                 </Popup>
-
-
                 <Popup trigger={<div className="auth">Login</div>} modal>
                   {close => (
                     <div className="modal">
@@ -301,12 +301,12 @@ export default function NavBar(props) {
                         onChange={handleChangeName}
                       /></div>
                       <div><TextField
-                          id="standard-multiline-flexible"
-                          label="Company"
-                          multiline
-                          rowsMax="4"
-                          onChange={handleChangeAccountantCompany}
-                        />
+                        id="standard-multiline-flexible"
+                        label="Company"
+                        multiline
+                        rowsMax="4"
+                        onChange={handleChangeAccountantCompany}
+                      />
                       </div>
                       <div>
                         <TextField
@@ -370,7 +370,6 @@ export default function NavBar(props) {
 
           </div>
         </div>)}
-
       {mode === "LOGGEDIN" && ( //handle logout functionality if the user loggedin
         <div className="loggedInMenu">
           {props.state.userInfo.name} --> <span onClick={() => props.logout()}>Logout</span>

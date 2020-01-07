@@ -18,14 +18,18 @@ function App() {
     registerAccountant
   } = useApplicationData();
 
+  //check if user logged in or not
   let mode = state.userInfo && state.userInfo.name ? "LOGGEDIN" : "LOGGEDOUT";
 
+  //check if the user client or accountant
   if (state.userInfo && state.userInfo.token) {
     if (state.userInfo.company) {
       localStorage.setItem("together::accountant", 'yes')
     }
     else
       localStorage.setItem("together::accountant", 'no')
+
+    //store token for the useEffect and check token validation
     localStorage.setItem("together::token", state.userInfo.token)
   }
 

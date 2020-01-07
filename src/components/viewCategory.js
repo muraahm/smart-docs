@@ -1,8 +1,5 @@
 import React from 'react';
 import "components/styles.scss";
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import { FormControl, InputLabel, Input, FormHelperText } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import AWS from 'aws-sdk'
@@ -12,17 +9,6 @@ import config from '../config'
 
 export default function ViewCategory(props) {
 
-  const useStyles = makeStyles(theme => ({
-    root: {
-      '& > *': {
-        margin: theme.spacing(1),
-      },
-    },
-    input: {
-      display: 'none',
-    },
-  }));
-  const classes = useStyles();
 
   const userEmail = props.userInfo.email
   const userCategory = props.categoryName
@@ -35,7 +21,7 @@ export default function ViewCategory(props) {
   const handleChangeAccountant = event => {
     setAccountant(event.target.value);
   };
-
+  //api server call to change accountant access to the category 
   const changeAccountnat = (accountnat, categoryId) => {
     axios.post(`${config.API_PATH}/api/user/change/accountnat`, { accountant, categoryId })
       .then(response => { })
@@ -48,25 +34,26 @@ export default function ViewCategory(props) {
   })
   const s3 = new AWS.S3();
 
-
-  const [photo, setPhoto] = React.useState('');
-  const [photoName, setPhotoName] = React.useState('');
+  //set file and name for the s3 uploading
+  const [file, setFile] = React.useState('');
+  const [fileName, setFileName] = React.useState('');
   const onChangeFile = (e) => {
-    setPhoto(e.target.files[0])
+    setFile(e.target.files[0])
   }
 
   const onChangeName = (e) => {
-    setPhotoName(e.target.value)
+    setFileName(e.target.value)
   }
   const upload = (categoryId, userId) => { //upload file function.
     const uploadDate = new Date()
     //post request to the server to save upload date(name in AWS)name and upload date for retriving from AWS
-    axios.post(`${config.API_PATH}/api/user/reciept/upload`, { uploadDate, photoName, categoryId, userId })
+    axios.post(`${config.API_PATH}/api/user/reciept/upload`, { uploadDate, fileName, categoryId, userId })
       .then(response => {
         s3.putObject({
           Bucket: process.env.REACT_APP__BUCKET,
-          Key: `${userEmail}/${userCategory}/${response.data.id}.png`,//save file name with date and time with seconds.
-          Body: photo,
+          //save file name with file id from the database.
+          Key: `${userEmail}/${userCategory}/${response.data.id}.png`,
+          Body: file,
           ACL: 'public-read'
         }, function (err, data) {
           if (err)
@@ -77,12 +64,12 @@ export default function ViewCategory(props) {
           }
         })
       })
-
   };
 
 
   const receiptsList = receipts.map(receipt => {
-    const url = s3.getSignedUrl('getObject', { //generate url to display photo by passing user email, category and photo name(date and time with seconds).
+    //generate url to display photo by passing user email, category and photo name(date and time with seconds).
+    const url = s3.getSignedUrl('getObject', {
       Bucket: process.env.REACT_APP__BUCKET,
       Key: `${userEmail}/${userCategory}/${receipt.id}.png`
     })

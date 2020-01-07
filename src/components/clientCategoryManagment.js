@@ -5,18 +5,20 @@ import AccountantClients from "components/accountantClients"
 import useVisualMode from "hooks/useVisualMode";
 import { useApplicationData } from "hooks/useApplicationData";
 
+//transitioning modes
 const LISTCLIENTS = "LISTCLIENTS"
 const LISTCLIENTRECEIPTS = "LISTCLIENTRECEIPTS"
 
 
 export default function ClientCategoryManagment(props) {
   const { mode, transition } = useVisualMode(LISTCLIENTS);
-
   const {
     getReceipts,
     state
   } = useApplicationData();
 
+
+  //handle view category and pass infor the the get receipts api call
   const [category, setCategory] = React.useState('');
   const [userEmail, setUserEmail] = React.useState('');
   const [userName, setUserName] = React.useState('');

@@ -3,10 +3,12 @@ import Collapsible from 'react-collapsible';
 import "components/styles.scss";
 
 export default function AccountantClients(props) {
-
+  //prevent erroring out if the accountant does not have clients
   const clients = props.state.userInfo.users ? props.state.userInfo.users : [];
 
   const clientsList = clients.map(client => {
+
+    //generate all clients for the accountant
     const categoriesList = client.categories.map(category => {
       return (
         <div className="categoryItem"
@@ -20,7 +22,7 @@ export default function AccountantClients(props) {
       )
     })
 
-
+//generate all categories for one client
     return (
       <div className="categoryItem"
         key={client.id}>
@@ -33,6 +35,7 @@ export default function AccountantClients(props) {
     )
   })
 
+  //main view
   return (
     <div className="categoryList">
       {clientsList}

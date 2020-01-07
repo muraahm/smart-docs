@@ -133,6 +133,7 @@ export function useApplicationData() {
       //get token from local storage and check if user client or accountant
       const token = localStorage.getItem("together::token");
       const isAccountant = localStorage.getItem("together::accountant");
+      
       //use effect api call if client logged in
       if (isAccountant === 'no') {
         Promise.all([

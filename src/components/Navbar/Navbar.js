@@ -9,7 +9,6 @@ import TextField from '@material-ui/core/TextField';
 export default function NavBar(props) {
   // nav bar to recognice if user loggedin or not
   let mode = props.state.userInfo && props.state.userInfo.name ? "LOGGEDIN" : "LOGGEDOUT";
-
   //handle registeration and login
   const [name, setName] = React.useState('');
   const handleChangeName = event => {

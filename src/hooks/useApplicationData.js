@@ -110,6 +110,13 @@ export function useApplicationData() {
         const userInfo = response.data;
         dispatch({ type: SET_USER_INFO, value: userInfo });
       })
+      .then(
+        axios.get(`${config.API_PATH}/api/accountants`)
+          .then(response => {
+            const accountants = response.data;
+            dispatch({ type: SET_ACCOUNTANTS, value: accountants });
+          })
+      )
   }
 
   useEffect(

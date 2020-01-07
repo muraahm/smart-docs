@@ -4,9 +4,9 @@ import "components/styles.scss";
 
 export default function AccountantClients(props) {
 
-  const clients = props.state.userInfo.users
-  const clientsList = clients.map(client => {
+  const clients = props.state.userInfo.users ? props.state.userInfo.users : [];
 
+  const clientsList = clients.map(client => {
     const categoriesList = client.categories.map(category => {
       return (
         <div className="categoryItem"

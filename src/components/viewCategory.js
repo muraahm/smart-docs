@@ -1,12 +1,28 @@
 import React from 'react';
 import "components/styles.scss";
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import { FormControl, InputLabel, Input, FormHelperText } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import AWS from 'aws-sdk'
 import axios from "axios";
 import config from '../config'
 
+
 export default function ViewCategory(props) {
+
+  const useStyles = makeStyles(theme => ({
+    root: {
+      '& > *': {
+        margin: theme.spacing(1),
+      },
+    },
+    input: {
+      display: 'none',
+    },
+  }));
+  const classes = useStyles();
 
   const userEmail = props.userInfo.email
   const userCategory = props.categoryName
@@ -22,7 +38,7 @@ export default function ViewCategory(props) {
 
   const changeAccountnat = (accountnat, categoryId) => {
     axios.post(`${config.API_PATH}/api/user/change/accountnat`, { accountant, categoryId })
-      .then(response => {})
+      .then(response => { })
   }
 
   AWS.config.update({ //passing keys for bucket access.
@@ -110,23 +126,17 @@ export default function ViewCategory(props) {
             <div onClick={() => { changeAccountnat(accountant, props.categoryId) }} style={{ float: "right", cursor: "pointer" }}>Save</div></div>
         </div>
         <div className="fileUpload">
-          <div>
-            <form onSubmit={upload}>
-              <div>
-                <input type="file" onChange={onChangeFile} />
-              </div>
-              <div>
-                <button type='button' onClick={() => upload(props.categoryId, props.userInfo.id)}>Upload ==> </button>
-                <div><TextField
-                        id="standard-multiline-flexible"
-                        label="Enter receipt name"
-                        multiline
-                        rowsMax="4"
-                        onChange={onChangeName}
-                      /></div>
-              </div>
-            </form>
-          </div>
+          <form onSubmit={upload}>
+            <input type="file" onChange={onChangeFile} />
+            <TextField
+              id="standard-multiline-flexible"
+              label="Enter receipt name"
+              multiline
+              rowsMax="4"
+              onChange={onChangeName}
+            />
+            <button type='button' onClick={() => upload(props.categoryId, props.userInfo.id)}>Upload ==> </button>
+          </form>
         </div>
       </div>
       {receiptsList}

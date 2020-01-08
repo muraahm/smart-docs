@@ -53,7 +53,7 @@ export default function NavBar(props) {
         <div className="notLoggedInMenu">
           <div className='hamburgerMenu'>
             {/* small screen and mobile view nave bar */}
-            <Collapsible trigger="Start Here">
+            <Collapsible trigger={<div className="hamburgerMenuTrigger">Start Here</div>}>
               <div className="accountant">Client
               <Popup trigger={<div className="auth">Register</div>} modal>
                   {close => (
@@ -212,7 +212,7 @@ export default function NavBar(props) {
           {/* bigger screens view */}
           <div className='dropMenus'>
             <div className="menu">
-              <Collapsible trigger="Client">
+              <Collapsible className="clientDropMenu" trigger={<div className="clientDropMenuTrigger">Client</div>}>
                 <Popup trigger={<div className="auth">Register</div>} modal>
                   {close => (
                     <div className="modal">
@@ -286,7 +286,7 @@ export default function NavBar(props) {
             </div>
             <div className="menu--coma">/</div>
             <div className="menu">
-              <Collapsible trigger="Accountant">
+              <Collapsible className="accountantDropMenu" trigger={<div className="accountantDropMenuTrigger">Accountant</div>}>
                 <Popup trigger={<div className="auth">Register</div>} modal>
                   {close => (
                     <div className="modal">

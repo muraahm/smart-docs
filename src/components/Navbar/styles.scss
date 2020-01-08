@@ -1,20 +1,31 @@
 .topbar {
   // height: 3.2rem;
-  background-color: rgb(38, 65, 35);
+  // background-color: rgba(31, 86, 115, 1);
+  background-image: linear-gradient(rgba(31, 86, 115, 1), rgba(42, 30, 92, 1));
+  box-shadow: 10px 6px 10px 0 rgba(0, 0, 0, 0.2),
+    0 10px 20px 0 rgba(0, 0, 0, 0.19);
   justify-content: space-between;
   align-items: center;
   display: flex;
   border-radius: 15px 30px 45px 7.5px;
 
   .brand {
+    width: 150px;
     margin-left: 1rem;
     font-family: "Pacifico", cursive;
     font-size: x-large;
     cursor: pointer;
     color: white;
-
     &:hover {
-      opacity: 0.25;
+      // opacity: 0.25;
+      background-color: rgb(172, 97, 134);
+      -webkit-transition: background-color 0.5s ease-out;
+      -moz-transition: background-color 0.5s ease-out;
+      -o-transition: background-color 0.5s ease-out;
+      transition: background-color 0.5s ease-out;
+      border-radius: 10px 10px 10px 10px;
+      box-shadow: 10px 6px 10px 0 rgba(0, 0, 0, 0.2),
+        0 10px 20px 0 rgba(0, 0, 0, 0.19);
     }
   }
 
@@ -25,6 +36,7 @@
       margin-bottom: 4px;
 
       .menu {
+        text-align: -webkit-center;
         margin-left: 1rem;
         font-family: "Pacifico", cursive;
         font-size: x-large;
@@ -34,12 +46,45 @@
         // &:hover {
         //   opacity: 0.25;
         // }
+        .clientDropMenuTrigger {
+          width: 80px;
+          &:hover {
+            background-color: rgb(172, 97, 134);
+            -webkit-transition: background-color 0.5s ease-out;
+            -moz-transition: background-color 0.5s ease-out;
+            -o-transition: background-color 0.5s ease-out;
+            transition: background-color 0.5s ease-out;
+            border-radius: 10px 10px 10px 10px;
+            box-shadow: 10px 6px 10px 0 rgba(0, 0, 0, 0.2),
+              0 10px 20px 0 rgba(0, 0, 0, 0.19);
+          }
+        }
+
+        .accountantDropMenuTrigger {
+          width: 150px;
+          margin-right: 1rem;
+          &:hover {
+            background-color: rgb(172, 97, 134);
+            -webkit-transition: background-color 0.5s ease-out;
+            -moz-transition: background-color 0.5s ease-out;
+            -o-transition: background-color 0.5s ease-out;
+            transition: background-color 0.5s ease-out;
+            border-radius: 10px 10px 10px 10px;
+            box-shadow: 10px 6px 10px 0 rgba(0, 0, 0, 0.2),
+              0 10px 20px 0 rgba(0, 0, 0, 0.19);
+          }
+        }
 
         .auth {
+          width: 80px;
           font-family: "Cormorant Garamond", serif;
           font-size: large;
           &:hover {
-            opacity: 0.25;
+            background-color: rgba(159, 154, 164, 1);
+            transition: background-color 0.5s ease-out;
+            border-radius: 10px 10px 10px 10px;
+            box-shadow: 10px 6px 10px 0 rgba(0, 0, 0, 0.2),
+              0 10px 20px 0 rgba(0, 0, 0, 0.19);
           }
         }
 
@@ -79,24 +124,43 @@
       }
     }
     .hamburgerMenu {
+      padding: 7px;
       font-family: "Pacifico", cursive;
       display: block !important;
       margin-right: 20px;
       margin-top: 15px;
       cursor: pointer;
       color: white;
-      // font-family: "Cormorant Garamond", serif;
       font-size: large;
+
+      .hamburgerMenuTrigger {
+        &:hover {
+          background-color: rgb(172, 97, 134);
+          -webkit-transition: background-color 0.5s ease-out;
+          -moz-transition: background-color 0.5s ease-out;
+          -o-transition: background-color 0.5s ease-out;
+          transition: background-color 0.5s ease-out;
+          border-radius: 10px 10px 10px 10px;
+          box-shadow: 10px 6px 10px 0 rgba(0, 0, 0, 0.2),
+            0 10px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+      }
+
       .accountant {
-        border: 2px solid black;
-        border-radius: 5px;
-        background-color: rgb(75, 131, 75);
+        padding: 2px;
+        background-color: rgba(10, 15, 13, 1);
+        border-radius: 10px 10px 10px 10px;
+        margin-bottom: 8px;
       }
       .auth {
         font-family: "Cormorant Garamond", serif;
         font-size: medium;
         &:hover {
-          opacity: 0.25;
+          background-color: rgba(159, 154, 164, 1);
+          transition: background-color 0.5s ease-out;
+          border-radius: 10px 10px 10px 10px;
+          box-shadow: 10px 6px 10px 0 rgba(0, 0, 0, 0.2),
+            0 10px 20px 0 rgba(0, 0, 0, 0.19);
         }
       }
 

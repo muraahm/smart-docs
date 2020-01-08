@@ -476,7 +476,9 @@ export default function NavBar(props) {
         </div>)}
       {mode === "LOGGEDIN" && ( //handle logout functionality if the user loggedin
         <div className="loggedInMenu">
-          {props.state.userInfo.name} --> <span onClick={() => props.logout()}>Logout</span>
+          <div>{props.state.userInfo.name}</div>
+          <div className="logout" onClick={() => props.logout()}>Logout</div>
+
         </div>)}
     </section>
   );

@@ -102,15 +102,32 @@
   }
 
   .loggedInMenu {
-    font-family: "Pacifico", cursive;
+    display: inline-flex;
     font-family: "Pacifico", cursive;
     font-size: x-large;
-    cursor: pointer;
     color: white;
-    margin-right: 8px;
-    margin-bottom: 4px;
-    span:hover {
-      opacity: 0.25;
+    align-items: center;
+    margin-right: 1%;
+    .logout {
+      margin-left: 10%;
+      font-family: initial;
+      font-size: medium;
+      padding: 5px;
+      margin-right: 1rem;
+      background-color: rgba(159, 154, 164, 1);
+      border-radius: 10px 10px 10px 10px;
+      cursor: pointer;
+      &:hover {
+        transition: background-color 0.5s ease-out;
+        background-color: rgb(199, 52, 52);
+        -webkit-transition: background-color 0.5s ease-out;
+        -moz-transition: background-color 0.5s ease-out;
+        -o-transition: background-color 0.5s ease-out;
+        transition: background-color 0.5s ease-out;
+        border-radius: 10px 10px 10px 10px;
+        box-shadow: 10px 6px 10px 0 rgba(0, 0, 0, 0.2),
+          0 10px 20px 0 rgba(0, 0, 0, 0.19);
+      }
     }
   }
   @media (max-width: 600px) {
@@ -163,10 +180,6 @@
             0 10px 20px 0 rgba(0, 0, 0, 0.19);
         }
       }
-
-      // &:hover {
-      //   opacity: 0.25;
-      // }
       .hamburgerbar {
         width: 35px;
         height: 5px;
@@ -177,14 +190,11 @@
   }
 }
 
-
-
 .form {
   width: 100%;
 }
 .modal > .form {
   font-size: 12px;
-
 }
 .modal > .form > .header {
   width: 100%;
@@ -196,12 +206,6 @@
   background: rgba(154, 209, 212, 1);
   padding: 1px;
 }
-// .modal > .content {
-//   width: 100%;
-//   padding: 10px 5px;
-//   background-image: linear-gradient(rgb(75, 131, 75), rgb(82, 75, 75));
-  
-// }
 .modal > .form > .actions {
   width: 100%;
   padding: 10px 5px;
@@ -214,7 +218,7 @@
     color: white;
     background-color: rgba(31, 86, 115, 1);
     border-radius: 10px 10px 10px 10px;
-    
+
     &:hover {
       background-color: rgb(172, 97, 134);
       transition: background-color 0.5s ease-out;
@@ -240,5 +244,4 @@
     background-color: rgb(199, 52, 52);
     transition: background-color 0.2s ease-out;
   }
-
 }

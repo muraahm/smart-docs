@@ -3,6 +3,8 @@ import Collapsible from 'react-collapsible';
 import "components/Navbar/styles.scss";
 import Popup from "reactjs-popup";
 import TextField from '@material-ui/core/TextField';
+import { FormControl } from '@material-ui/core';
+import { FormHelperText } from '@material-ui/core';
 
 
 
@@ -10,6 +12,9 @@ export default function NavBar(props) {
   // nav bar to recognice if user loggedin or not
   let mode = props.state.userInfo && props.state.userInfo.name ? "LOGGEDIN" : "LOGGEDOUT";
   //handle registeration and login
+  //handle error fiels empty
+  const [error, setError] = React.useState(false);
+
   const [name, setName] = React.useState('');
   const handleChangeName = event => {
     setName(event.target.value);
@@ -30,19 +35,41 @@ export default function NavBar(props) {
 
   //client registeration and login
   const registerUser = () => {
-    props.register(name, email, password)
+    if (!name || !email || !password) {
+      setError(true)
+    }
+    else {
+      props.register(name, email, password)
+    }
+
+
   }
   const loginUser = () => {
-    props.login(email, password)
+    if (!email || !password) {
+      setError(true)
+    }
+    else {
+      props.login(email, password)
+    }
   }
 
 
   //accountant registeration and login
   const registerAccontant = () => {
-    props.registerAccountant(name, accountantCompany, email, password)
+    if (!name || !email || !password || !accountantCompany) {
+      setError(true)
+    }
+    else {
+      props.registerAccountant(name, accountantCompany, email, password)
+    }
   }
   const loginAccountant = () => {
-    props.loginAccountant(email, password)
+    if (!email || !password) {
+      setError(true)
+    }
+    else {
+      props.loginAccountant(email, password)
+    }
   }
 
 
@@ -58,71 +85,89 @@ export default function NavBar(props) {
               <Popup trigger={<div className="auth">Register</div>} modal>
                   {close => (
                     <div className="modal">
-                      <button className="close" onClick={close}>
-                        &times;</button>
-                      <div><TextField
-                        id="standard-multiline-flexible"
-                        label="Name"
-                        multiline
-                        rowsMax="4"
-                        onChange={handleChangeName}
-                        error={name === ""}
-                        helperText={name === "" ? 'Empty field!' : ' '}
-                      /></div>
-                      <div>
-                        <TextField
-                          id="standard-multiline-flexible"
-                          label="Email"
-                          multiline
+                      <FormControl className="form" noValidate autoComplete="off">
+                        <button className="close" onClick={() => {
+                          close()
+                          setError(false)
+                        }}>
+                          &times;</button>
+                        <div className="header"> Register </div>
+                        <div><TextField
+                          id="name"
+                          label="Name"
                           rowsMax="4"
-                          onChange={handleChangeEmail}
+                          onChange={handleChangeName}
+                          required={true}
                         /></div>
-                      <div><TextField
-                        id="standard-multiline-flexible"
-                        label="Password"
-                        multiline
-                        rowsMax="4"
-                        onChange={handleChangePassword}
-                      /></div>
-                      <div className="actions">
-                        <button
-                          className="button"
-                          onClick={() => {
-                            registerUser();
-                            close();
-                          }}>Register</button>
-                      </div>
+                        <div>
+                          <TextField
+                            id="email"
+                            label="Email"
+                            rowsMax="4"
+                            onChange={handleChangeEmail}
+                            required={true}
+                          /></div>
+                        <div><TextField
+                          id="password"
+                          label="Password"
+                          rowsMax="4"
+                          onChange={handleChangePassword}
+                          required={true}
+                          type="password"
+                        /></div>
+                        <div className="actions">
+                          <button
+                            className="action"
+                            onClick={() => {
+                              registerUser();
+                              if (name && email && password) {
+                                close();
+                              }
+                            }}>Register</button>
+                        </div>
+                        {error === true && <FormHelperText error={error}>All fields required</FormHelperText>}
+                      </FormControl>
                     </div>
                   )}
                 </Popup>
                 <Popup trigger={<div className="auth">Login</div>} modal>
                   {close => (
                     <div className="modal">
-                      <button className="close" onClick={close}>
-                        &times;</button>
-                      <div>
-                        <TextField
-                          id="standard-multiline-flexible"
-                          label="Email"
-                          multiline
+                      <FormControl className="form" noValidate autoComplete="off">
+                        <button className="close" onClick={() => {
+                          close()
+                          setError(false)
+                        }}>
+                          &times;</button>
+                        <div className="header"> Login </div>
+                        <div>
+                          <TextField
+                            id="email"
+                            label="Email"
+                            required={true}
+                            rowsMax="4"
+                            onChange={handleChangeEmail}
+                          /></div>
+                        <div><TextField
+                          id="password"
+                          label="Password"
+                          type="password"
+                          required={true}
                           rowsMax="4"
-                          onChange={handleChangeEmail}
+                          onChange={handleChangePassword}
                         /></div>
-                      <div><TextField
-                        id="standard-multiline-flexible"
-                        label="Password"
-                        multiline
-                        rowsMax="4"
-                        onChange={handleChangePassword}
-                      /></div>
-                      <div className="actions">
-                        <button
-                          className="button"
-                          onClick={() => {
-                            loginUser();
-                            close();
-                          }}>Login</button>
-                      </div>
+                        <div className="actions">
+                          <button
+                            className="action"
+                            onClick={() => {
+                              loginUser();
+                              if (email && password) {
+                                close();
+                              }
+                            }}>Login</button>
+                        </div>
+                        {error === true && <FormHelperText error={error}>All fields required</FormHelperText>}
+                      </FormControl>
                     </div>
                   )}
                 </Popup>
@@ -131,77 +176,97 @@ export default function NavBar(props) {
               <Popup trigger={<div className="auth">Register</div>} modal>
                   {close => (
                     <div className="modal">
-                      <button className="close" onClick={close}>
-                        &times;</button>
-                      <div><TextField
-                        id="standard-multiline-flexible"
-                        label="Name"
-                        multiline
-                        rowsMax="4"
-                        onChange={handleChangeName}
-                      /></div>
-                      <div><TextField
-                        id="standard-multiline-flexible"
-                        label="Company"
-                        multiline
-                        rowsMax="4"
-                        onChange={handleChangeAccountantCompany}
-                      />
-                      </div>
-                      <div>
-                        <TextField
-                          id="standard-multiline-flexible"
-                          label="Email"
-                          multiline
+                      <FormControl className="form" noValidate autoComplete="off">
+                        <button className="close" onClick={() => {
+                          close()
+                          setError(false)
+                        }}>
+                          &times;</button>
+                        <div className="header"> Register </div>
+                        <div><TextField
+                          id="name"
+                          label="Name"
+                          required={true}
                           rowsMax="4"
-                          onChange={handleChangeEmail}
+                          onChange={handleChangeName}
                         /></div>
-                      <div><TextField
-                        id="standard-multiline-flexible"
-                        label="Password"
-                        multiline
-                        rowsMax="4"
-                        onChange={handleChangePassword}
-                      /></div>
-                      <div className="actions">
-                        <button
-                          className="button"
-                          onClick={() => {
-                            registerAccontant();
-                            close();
-                          }}>Register</button>
-                      </div>
+                        <div><TextField
+                          id="company"
+                          label="Company"
+                          required={true}
+                          rowsMax="4"
+                          onChange={handleChangeAccountantCompany}
+                        />
+                        </div>
+                        <div>
+                          <TextField
+                            id="email"
+                            label="Email"
+                            required={true}
+                            rowsMax="4"
+                            onChange={handleChangeEmail}
+                          /></div>
+                        <div><TextField
+                          id="password"
+                          label="Password"
+                          type="password"
+                          rowsMax="4"
+                          required={true}
+                          onChange={handleChangePassword}
+                        /></div>
+                        <div className="actions">
+                          <button
+                            className="action"
+                            onClick={() => {
+                              registerAccontant();
+                              if (name && email && password && accountantCompany) {
+                                close();
+                              }
+                            }}>Register</button>
+                        </div>
+                        {error === true && <FormHelperText error={error}>All fields required</FormHelperText>}
+                      </FormControl>
                     </div>
                   )}
                 </Popup>
                 <Popup trigger={<div className="auth">Login</div>} modal>
                   {close => (
                     <div className="modal">
-                      <button className="close" onClick={close}>
-                        &times;</button>
-                      <div>
-                        <TextField
-                          id="standard-multiline-flexible"
-                          label="Email"
-                          multiline
+                      <FormControl className="form" noValidate autoComplete="off">
+                        <button className="close" onClick={() => {
+                          close()
+                          setError(false)
+                        }}>
+                          &times;</button>
+                        <div className="header"> Login </div>
+                        <div>
+                          <TextField
+                            id="email"
+                            label="Email"
+                            required={true}
+                            rowsMax="4"
+                            onChange={handleChangeEmail}
+                          /></div>
+                        <div><TextField
+                          id="password"
+                          label="Password"
+                          type="password"
+                          required={true}
                           rowsMax="4"
-                          onChange={handleChangeEmail}
+                          onChange={handleChangePassword}
                         /></div>
-                      <div><TextField
-                        id="standard-multiline-flexible"
-                        label="Password"
-                        multiline
-                        rowsMax="4"
-                        onChange={handleChangePassword}
-                      /></div>
-                      <div className="actions">
-                        <button
-                          className="button"
-                          onClick={() => {
-                            loginAccountant();
-                            close();
-                          }}>Login</button>
-                      </div>
+                        <div className="actions">
+                          <button
+                            className="action"
+                            onClick={() => {
+                              loginAccountant();
+                              if (email && password) {
+                                close();
+                              }
+                            }}>Login</button>
+                        </div>
+                        {error === true && <FormHelperText error={error}>All fields required</FormHelperText>}
+                      </FormControl>
                     </div>
                   )}
                 </Popup>
@@ -216,69 +281,89 @@ export default function NavBar(props) {
                 <Popup trigger={<div className="auth">Register</div>} modal>
                   {close => (
                     <div className="modal">
-                      <button className="close" onClick={close}>
-                        &times;</button>
-                      <div><TextField
-                        id="standard-multiline-flexible"
-                        label="Name"
-                        multiline
-                        rowsMax="4"
-                        onChange={handleChangeName}
-                      /></div>
-                      <div>
-                        <TextField
-                          id="standard-multiline-flexible"
-                          label="Email"
-                          multiline
+                      <FormControl className="form" noValidate autoComplete="off">
+                        <button className="close" onClick={() => {
+                          close()
+                          setError(false)
+                        }}>
+                          &times;</button>
+                        <div className="header"> Register </div>
+                        <div><TextField
+                          id="name"
+                          label="Name"
                           rowsMax="4"
-                          onChange={handleChangeEmail}
+                          onChange={handleChangeName}
+                          required={true}
                         /></div>
-                      <div><TextField
-                        id="standard-multiline-flexible"
-                        label="Password"
-                        multiline
-                        rowsMax="4"
-                        onChange={handleChangePassword}
-                      /></div>
-                      <div className="actions">
-                        <button
-                          className="button"
-                          onClick={() => {
-                            registerUser();
-                            close();
-                          }}>Register</button>
-                      </div>
+                        <div>
+                          <TextField
+                            id="email"
+                            label="Email"
+                            rowsMax="4"
+                            onChange={handleChangeEmail}
+                            required={true}
+                          /></div>
+                        <div><TextField
+                          id="password"
+                          label="Password"
+                          rowsMax="4"
+                          onChange={handleChangePassword}
+                          required={true}
+                          type="password"
+                        /></div>
+                        <div className="actions">
+                          <button
+                            className="action"
+                            onClick={() => {
+                              registerUser();
+                              if (name && email && password) {
+                                close();
+                              }
+                            }}>Register</button>
+                        </div>
+                        {error === true && <FormHelperText error={error}>All fields required</FormHelperText>}
+                      </FormControl>
                     </div>
                   )}
                 </Popup>
                 <Popup trigger={<div className="auth">Login</div>} modal>
                   {close => (
                     <div className="modal">
-                      <button className="close" onClick={close}>
-                        &times;</button>
-                      <div>
-                        <TextField
-                          id="standard-multiline-flexible"
-                          label="Email"
-                          multiline
+                      <FormControl className="form" noValidate autoComplete="off">
+                        <button className="close" onClick={() => {
+                          close()
+                          setError(false)
+                        }}>
+                          &times;</button>
+                        <div className="header"> Login </div>
+                        <div>
+                          <TextField
+                            id="email"
+                            label="Email"
+                            required={true}
+                            rowsMax="4"
+                            onChange={handleChangeEmail}
+                          /></div>
+                        <div><TextField
+                          id="password"
+                          label="Password"
+                          type="password"
+                          required={true}
                           rowsMax="4"
-                          onChange={handleChangeEmail}
+                          onChange={handleChangePassword}
                         /></div>
-                      <div><TextField
-                        id="standard-multiline-flexible"
-                        label="Password"
-                        multiline
-                        rowsMax="4"
-                        onChange={handleChangePassword}
-                      /></div>
-                      <div className="actions">
-                        <button
-                          className="button"
-                          onClick={() => {
-                            loginUser();
-                            close();
-                          }}>Login</button>
-                      </div>
+                        <div className="actions">
+                          <button
+                            className="action"
+                            onClick={() => {
+                              loginUser();
+                              if (email && password) {
+                                close();
+                              }
+                            }}>Login</button>
+                        </div>
+                        {error === true && <FormHelperText error={error}>All fields required</FormHelperText>}
+                      </FormControl>
                     </div>
                   )}
                 </Popup>
@@ -290,77 +375,97 @@ export default function NavBar(props) {
                 <Popup trigger={<div className="auth">Register</div>} modal>
                   {close => (
                     <div className="modal">
-                      <button className="close" onClick={close}>
-                        &times;</button>
-                      <div><TextField
-                        id="standard-multiline-flexible"
-                        label="Name"
-                        multiline
-                        rowsMax="4"
-                        onChange={handleChangeName}
-                      /></div>
-                      <div><TextField
-                        id="standard-multiline-flexible"
-                        label="Company"
-                        multiline
-                        rowsMax="4"
-                        onChange={handleChangeAccountantCompany}
-                      />
-                      </div>
-                      <div>
-                        <TextField
-                          id="standard-multiline-flexible"
-                          label="Email"
-                          multiline
+                      <FormControl className="form" noValidate autoComplete="off">
+                        <button className="close" onClick={() => {
+                          close()
+                          setError(false)
+                        }}>
+                          &times;</button>
+                        <div className="header"> Register </div>
+                        <div><TextField
+                          id="name"
+                          label="Name"
+                          required={true}
                           rowsMax="4"
-                          onChange={handleChangeEmail}
+                          onChange={handleChangeName}
                         /></div>
-                      <div><TextField
-                        id="standard-multiline-flexible"
-                        label="Password"
-                        multiline
-                        rowsMax="4"
-                        onChange={handleChangePassword}
-                      /></div>
-                      <div className="actions">
-                        <button
-                          className="button"
-                          onClick={() => {
-                            registerAccontant();
-                            close();
-                          }}>Register</button>
-                      </div>
+                        <div><TextField
+                          id="company"
+                          label="Company"
+                          required={true}
+                          rowsMax="4"
+                          onChange={handleChangeAccountantCompany}
+                        />
+                        </div>
+                        <div>
+                          <TextField
+                            id="email"
+                            label="Email"
+                            required={true}
+                            rowsMax="4"
+                            onChange={handleChangeEmail}
+                          /></div>
+                        <div><TextField
+                          id="password"
+                          label="Password"
+                          type="password"
+                          rowsMax="4"
+                          required={true}
+                          onChange={handleChangePassword}
+                        /></div>
+                        <div className="actions">
+                          <button
+                            className="action"
+                            onClick={() => {
+                              registerAccontant();
+                              if (name && email && password && accountantCompany) {
+                                close();
+                              }
+                            }}>Register</button>
+                        </div>
+                        {error === true && <FormHelperText error={error}>All fields required</FormHelperText>}
+                      </FormControl>
                     </div>
                   )}
                 </Popup>
                 <Popup trigger={<div className="auth">Login</div>} modal>
                   {close => (
                     <div className="modal">
-                      <button className="close" onClick={close}>
-                        &times;</button>
-                      <div>
-                        <TextField
-                          id="standard-multiline-flexible"
-                          label="Email"
-                          multiline
+                      <FormControl className="form" noValidate autoComplete="off">
+                        <button className="close" onClick={() => {
+                          close()
+                          setError(false)
+                        }}>
+                          &times;</button>
+                        <div className="header"> Login </div>
+                        <div>
+                          <TextField
+                            id="email"
+                            label="Email"
+                            required={true}
+                            rowsMax="4"
+                            onChange={handleChangeEmail}
+                          /></div>
+                        <div><TextField
+                          id="password"
+                          label="Password"
+                          type="password"
+                          required={true}
                           rowsMax="4"
-                          onChange={handleChangeEmail}
+                          onChange={handleChangePassword}
                         /></div>
-                      <div><TextField
-                        id="standard-multiline-flexible"
-                        label="Password"
-                        multiline
-                        rowsMax="4"
-                        onChange={handleChangePassword}
-                      /></div>
-                      <div className="actions">
-                        <button
-                          className="button"
-                          onClick={() => {
-                            loginAccountant();
-                            close();
-                          }}>Login</button>
-                      </div>
+                        <div className="actions">
+                          <button
+                            className="action"
+                            onClick={() => {
+                              loginAccountant();
+                              if (email && password) {
+                                close();
+                              }
+                            }}>Login</button>
+                        </div>
+                        {error === true && <FormHelperText error={error}>All fields required</FormHelperText>}
+                      </FormControl>
                     </div>
                   )}
                 </Popup>

@@ -1,6 +1,4 @@
 .topbar {
-  // height: 3.2rem;
-  // background-color: rgba(31, 86, 115, 1);
   background-image: linear-gradient(rgba(31, 86, 115, 1), rgba(42, 30, 92, 1));
   box-shadow: 10px 6px 10px 0 rgba(0, 0, 0, 0.2),
     0 10px 20px 0 rgba(0, 0, 0, 0.19);
@@ -31,21 +29,18 @@
 
   .notLoggedInMenu {
     .dropMenus {
+      align-items: center;
       display: inline-flex;
       margin-right: 8px;
-      margin-bottom: 4px;
+      margin-top: 5px;
+      margin-bottom: 5px;
 
       .menu {
         text-align: -webkit-center;
         margin-left: 1rem;
-        font-family: "Pacifico", cursive;
         font-size: x-large;
         cursor: pointer;
         color: white;
-
-        // &:hover {
-        //   opacity: 0.25;
-        // }
         .clientDropMenuTrigger {
           width: 80px;
           &:hover {
@@ -103,7 +98,7 @@
 
   .loggedInMenu {
     display: inline-flex;
-    font-family: "Pacifico", cursive;
+    // font-family: "Pacifico", cursive;
     font-size: x-large;
     color: white;
     align-items: center;
@@ -142,7 +137,6 @@
     }
     .hamburgerMenu {
       padding: 7px;
-      font-family: "Pacifico", cursive;
       display: block !important;
       margin-right: 20px;
       margin-top: 15px;

@@ -20,6 +20,7 @@ export default function CreateCategory(props) {
   return (
     <div className="newCategory">
       <TextField
+        className="textField"
         required={true}
         id="standard-multiline-flexible"
         label="Category"
@@ -30,6 +31,7 @@ export default function CreateCategory(props) {
       />
 
       <TextField
+        className="textField"
         id="standard-multiline-flexible"
         select
         label="Accountant"
@@ -42,7 +44,17 @@ export default function CreateCategory(props) {
           </MenuItem>
         ))}
       </TextField>
-      <div className="create" onClick={() => props.create(category, accountant)}>Create</div>
+      <div className="actions">
+        <div
+          className="create"
+          onClick={() => props.create(category, accountant)}>Create
+      </div>
+        <div
+          className="create"
+          onClick={() => console.log('back')}>Back
+        </div>
+      </div>
+
     </div>
   );
 }

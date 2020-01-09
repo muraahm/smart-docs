@@ -14,7 +14,7 @@ const VIEWCATEGORY = "VIEWCATEGORY"
 
 export default function UserCategoryManagment(props) {
   
-  const { mode, transition } = useVisualMode(LIST);
+  const { mode, transition, back } = useVisualMode(LIST);
   const {
     getReceipts,
     state
@@ -53,7 +53,7 @@ export default function UserCategoryManagment(props) {
         <Clientcategories categories={props.state.userCategories} createView={createView} viewCategory={viewCategory}></Clientcategories>
       )}
       {mode === "CREATE" && (
-        <CreateCategory create={create} accountants={props.state.accountants}></CreateCategory>
+        <CreateCategory create={create} back={back} accountants={props.state.accountants}></CreateCategory>
       )}
 
       {mode === "VIEWCATEGORY" && props.state.userCategories && (

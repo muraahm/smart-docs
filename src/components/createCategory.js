@@ -2,6 +2,7 @@ import React from 'react';
 import "components/styles.scss";
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
+import { FormHelperText } from '@material-ui/core';
 
 export default function CreateCategory(props) {
 
@@ -17,6 +18,9 @@ export default function CreateCategory(props) {
     setCategoryName(event.target.value);
   };
 
+  //check if field empty
+  const [error, setError] = React.useState(false);
+
   return (
     <div className="newCategory">
       <TextField
@@ -24,7 +28,6 @@ export default function CreateCategory(props) {
         required={true}
         id="standard-multiline-flexible"
         label="Category"
-        multiline
         rowsMax="4"
         value={category}
         onChange={handleChangeCategoryName}
@@ -47,14 +50,21 @@ export default function CreateCategory(props) {
       <div className="actions">
         <div
           className="create"
-          onClick={() => props.create(category, accountant)}>Create
+          onClick={() => {
+            if (!category || !accountant) {
+              setError(true)
+            }
+            else {
+              props.create(category, accountant)
+            }
+          }}>Create
       </div>
         <div
           className="create"
-          onClick={() => console.log('back')}>Back
+          onClick={() => props.back()}>Back
         </div>
       </div>
-
+      {error === true && <FormHelperText className="error" error={error}>All fields required</FormHelperText>}
     </div>
   );
 }

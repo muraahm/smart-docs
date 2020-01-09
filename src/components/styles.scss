@@ -76,6 +76,15 @@
   .textField {
     width: 80%;
   }
+
+  .error {
+    float: left;
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 50px;
+    margin-right: 60%;
+    width: 95%;
+  }
   .actions {
     color: white;
     width: auto;
@@ -92,6 +101,7 @@
       width: auto;
       height: 21px;
       margin: 2px;
+      margin-bottom: 7px;
       cursor: pointer;
 
       &:hover {

@@ -22,13 +22,15 @@ export default function Clientcategories(props) {
   return (
     <div className="categoryList">
       {categoryList}
-      <img
-        style={{ cursor: 'pointer' }}
-        src="https://cdn3.iconfinder.com/data/icons/watchify-v1-0/70/add-70px-512.png"
-        alt="Create"
-        height="40" width="40"
-        onClick={() => props.createView()}
-      />
+      <div className="add">
+        <img
+          style={{ cursor: 'pointer' }}
+          src="https://cdn3.iconfinder.com/data/icons/watchify-v1-0/70/add-70px-512.png"
+          alt="Create"
+          height="40" width="40"
+          onClick={() => props.createView()}
+        />
+      </div>
     </div>
   );
 }

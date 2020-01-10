@@ -3,27 +3,17 @@ import "components/styles.scss";
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Popup from "reactjs-popup";
-import { makeStyles } from '@material-ui/core/styles';
 import { FormControl } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
 import { FormHelperText } from '@material-ui/core';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import { DropzoneArea } from 'material-ui-dropzone'
 import AWS from 'aws-sdk'
 import axios from "axios";
 import config from '../config'
 
-const useStyles = makeStyles(theme => ({
-  button: {
-    margin: theme.spacing(1),
-  },
-}));
-
 
 export default function ViewCategory(props) {
 
-  const classes = useStyles();
   const userEmail = props.userInfo.email
   const userCategory = props.categoryName
   const currentAccountantCompany = props.accountantCompany
@@ -38,6 +28,7 @@ export default function ViewCategory(props) {
   };
   //api server call to change accountant access to the category 
   const changeAccountnat = (accountnat, categoryId) => {
+    setError(false)
     axios.post(`${config.API_PATH}/api/user/change/accountnat`, { accountant, categoryId })
       .then(response => { })
   }
@@ -59,6 +50,12 @@ export default function ViewCategory(props) {
   const onChangeName = (e) => {
     setFileName(e.target.value)
   }
+
+  const resetForm = () => {
+    setError(false)
+    setFileName('')
+    setFile('')
+  }
   const upload = (categoryId, userId) => { //upload file function.
 
     if (!fileName || !file) {
@@ -79,11 +76,15 @@ export default function ViewCategory(props) {
             if (err)
               alert('Sorry, Something went wrong.');
             else {
+              setFile('')
+              setFileName('')
+              setError(false)
               props.getReceipts(categoryId, userId)
               alert('Successfully uploaded.');
             }
           })
         })
+        resetForm()
     }
   };
 
@@ -155,7 +156,7 @@ export default function ViewCategory(props) {
       </div>} modal>
             {close => (
               <div className="uploadModal">
-                <FormControl className="form" onSubmit={upload} noValidate autoComplete="off">
+                <FormControl className="form" noValidate autoComplete="off">
                   <button className="close" onClick={() => {
                     close()
                     setError(false)
@@ -181,6 +182,7 @@ export default function ViewCategory(props) {
                       onClick={() => {
                         upload(props.categoryId, props.userInfo.id)
                         if (file && fileName) {
+                          setError(false)
                           close();
                         }
                       }}>Save</button>

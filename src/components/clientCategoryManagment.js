@@ -35,15 +35,17 @@ export default function ClientCategoryManagment(props) {
     <div>
       {mode === LISTCLIENTS &&
         (
-          <AccountantClients
-            state={props.state}
-            viewCategory={viewCategory}
-          >
-          </AccountantClients>
+          <div className="accountantClients">
+            <AccountantClients
+              state={props.state}
+              viewCategory={viewCategory}
+            >
+            </AccountantClients>
+          </div>
         )}
       {mode === LISTCLIENTRECEIPTS &&
         (
-          <React.Fragment>
+          <div className="accountantClients">
             <AccountantClients
               state={props.state}
               viewCategory={viewCategory}
@@ -57,7 +59,7 @@ export default function ClientCategoryManagment(props) {
               // categoryId={category.id}
               receipts={state.userReciepts}
             ></ViewClientCategory>
-          </React.Fragment>
+          </div>
         )}
     </div>
   );

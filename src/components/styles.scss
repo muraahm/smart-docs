@@ -125,8 +125,13 @@
   width: 100%;
 }
 
-.receiptsList {
+.accountantClients {
   margin-top: 2%;
+}
+
+.receiptsList {
+  // margin-top: 2%;
+  position: relative;
   margin-left: auto;
   margin-right: auto;
   background-color: rgb(155, 182, 155);
@@ -213,7 +218,6 @@
       font-family: initial;
       font-size: medium;
       padding: 5px;
-      // margin-right: 1rem;
       background-color: rgba(159, 154, 164, 1);
       border-radius: 10px 10px 10px 10px;
       cursor: pointer;
@@ -256,8 +260,7 @@
   .receiptItem {
     text-align: center;
     padding-top: 10px;
-    // background-color: rgba(10, 15, 13, 1);
-    font-size: smaller  ;
+    font-size: smaller;
     border-radius: 15px;
     height: 20%;
     width: 15%;
@@ -295,9 +298,10 @@
   align-self: center;
 }
 .dropZone {
+  grid-template-columns: 80%;
+  padding: 1%;
   display: grid;
-  grid-gap: 40px;
-  height: calc(20vh);
+  justify-content: center;
   .DropzoneArea-dropZone-127 {
     position: inherit;
   }
@@ -347,5 +351,82 @@
   &:hover {
     background-color: rgb(199, 52, 52);
     transition: background-color 0.2s ease-out;
+  }
+}
+
+.clients-list {
+  position: relative;
+  border-radius: 10px 10px 10px 10px;
+  box-shadow: 10px 6px 10px 0 rgba(0, 0, 0, 0.2),
+    0 10px 20px 0 rgba(0, 0, 0, 0.19);
+  float: right;
+  margin-right: 5%;
+  margin-left: auto;
+  padding-top: 10px;
+  width: 30%;
+  background-image: linear-gradient(
+    rgba(154, 209, 212, 1),
+    rgba(231, 207, 205, 1)
+  );
+  display: inline-flex;
+  flex-direction: column;
+  height: 60vh;
+
+  .add {
+    bottom: 0;
+    align-self: center;
+    position: absolute;
+
+    &:hover {
+      transition: background-color 0.5s ease-out;
+      background-color: rgba(159, 154, 164, 1);
+      border-radius: 30px;
+    }
+  }
+
+  .items-container {
+    height: 72%;
+  }
+
+  .clients {
+    display: inline-flex;
+    display: inline-table;
+    align-items: center;
+    justify-content: center;
+    font-size: large;
+    background-color: rgba(31, 86, 115, 1);
+    margin-top: 10px;
+    margin-bottom: 5px;
+    border-radius: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    color: rgb(231, 229, 229);
+    font-family: "Cormorant Garamond", serif;
+    cursor: pointer;
+    &:hover {
+      box-shadow: 10px 6px 10px 0 rgba(0, 0, 0, 0.2),
+        0 1px 6px 0 rgb(150, 37, 61);
+      transition: background-color 0.5s ease-out;
+      background-color: rgba(10, 15, 13, 1);
+    }
+    .Collapsible {
+      width: 100%;
+      text-align: -webkit-center;
+      // display: inline-flex;
+      
+      justify-content: space-between;
+      align-items: center;
+    }
+    .categories {
+      margin: 2px;
+      background-color: rgba(42, 30, 92, 1);
+      border-radius: 15px;
+      width: 90%;
+      
+      &:hover {
+        background-color: rgba(159, 154, 164, 1);
+      }
+    }
   }
 }

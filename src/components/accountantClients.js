@@ -11,7 +11,7 @@ export default function AccountantClients(props) {
     //generate all clients for the accountant
     const categoriesList = client.categories.map(category => {
       return (
-        <div className="categoryItem"
+        <div className="categories"
           key={category.category_id}
           id={category.category_id}
           clientemail={client.email}
@@ -22,13 +22,12 @@ export default function AccountantClients(props) {
       )
     })
 
-//generate all categories for one client
+    //generate all categories for one client
     return (
-      <div className="categoryItem"
+      <div className="clients"
         key={client.id}>
-        <Collapsible trigger={client.name}>
-          <div className="categoryItem"
-          >{categoriesList}</div>
+        <Collapsible trigger={<div className="client-trigger">{client.name}</div>} className="clientsList">
+          {categoriesList}
         </Collapsible>
       </div>
 
@@ -37,8 +36,10 @@ export default function AccountantClients(props) {
 
   //main view
   return (
-    <div className="categoryList">
-      {clientsList}
+    <div className="clients-list">
+      <div className='items-container'>
+        {clientsList}
+      </div>
     </div>
   );
 }

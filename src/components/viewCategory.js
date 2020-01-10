@@ -2,20 +2,35 @@ import React from 'react';
 import "components/styles.scss";
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
+import Popup from "reactjs-popup";
+import { makeStyles } from '@material-ui/core/styles';
+import { FormControl } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import { FormHelperText } from '@material-ui/core';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import PhotoCamera from '@material-ui/icons/PhotoCamera';
+import { DropzoneArea } from 'material-ui-dropzone'
 import AWS from 'aws-sdk'
 import axios from "axios";
 import config from '../config'
 
+const useStyles = makeStyles(theme => ({
+  button: {
+    margin: theme.spacing(1),
+  },
+}));
+
 
 export default function ViewCategory(props) {
 
-
+  const classes = useStyles();
   const userEmail = props.userInfo.email
   const userCategory = props.categoryName
   const currentAccountantCompany = props.accountantCompany
   const [accountant, setAccountant] = React.useState(currentAccountantCompany || '');
   const accountants = props.accountants
   const receipts = props.state.userReciepts
+  const [error, setError] = React.useState(false);
 
 
   const handleChangeAccountant = event => {
@@ -37,33 +52,39 @@ export default function ViewCategory(props) {
   //set file and name for the s3 uploading
   const [file, setFile] = React.useState('');
   const [fileName, setFileName] = React.useState('');
-  const onChangeFile = (e) => {
-    setFile(e.target.files[0])
+  const onChangeFile = (file) => {
+    setFile(file[0])
   }
 
   const onChangeName = (e) => {
     setFileName(e.target.value)
   }
   const upload = (categoryId, userId) => { //upload file function.
-    const uploadDate = new Date()
-    //post request to the server to save upload date(name in AWS)name and upload date for retriving from AWS
-    axios.post(`${config.API_PATH}/api/user/reciept/upload`, { uploadDate, fileName, categoryId, userId })
-      .then(response => {
-        s3.putObject({
-          Bucket: process.env.REACT_APP__BUCKET,
-          //save file name with file id from the database.
-          Key: `${userEmail}/${userCategory}/${response.data.id}.png`,
-          Body: file,
-          ACL: 'public-read'
-        }, function (err, data) {
-          if (err)
-            alert('Sorry, Something went wrong.');
-          else {
-            props.getReceipts(categoryId, userId)
-            alert('Successfully uploaded.');
-          }
+
+    if (!fileName || !file) {
+      setError(true)
+    }
+    else {
+      const uploadDate = new Date()
+      //post request to the server to save upload date(name in AWS)name and upload date for retriving from AWS
+      axios.post(`${config.API_PATH}/api/user/reciept/upload`, { uploadDate, fileName, categoryId, userId })
+        .then(response => {
+          s3.putObject({
+            Bucket: process.env.REACT_APP__BUCKET,
+            //save file name with file id from the database.
+            Key: `${userEmail}/${userCategory}/${response.data.id}.png`,
+            Body: file,
+            ACL: 'public-read'
+          }, function (err, data) {
+            if (err)
+              alert('Sorry, Something went wrong.');
+            else {
+              props.getReceipts(categoryId, userId)
+              alert('Successfully uploaded.');
+            }
+          })
         })
-      })
+    }
   };
 
 
@@ -89,8 +110,7 @@ export default function ViewCategory(props) {
             height="130" width="100"
           />
         </a>
-
-        <div>{receipt.name}</div>
+        <div className="receipt-name">{receipt.name}</div>
       </div>
     )
   })
@@ -99,12 +119,15 @@ export default function ViewCategory(props) {
     <div className="receiptsList">
       <div style={{ width: "100%" }}>
         <div className="categoryDetails">
-          <div>Category: {userCategory}</div>
+          <div className="category-info">
+          <div className="category-name">{userCategory}</div>
           <div className="changeAccountant">Accountant:
         <TextField
               id="standard-multiline-flexible"
+              className="accountant-list"
               select
               value={accountant}
+              multiline
               onChange={handleChangeAccountant}
             >
               {accountants.map(option => (
@@ -113,21 +136,62 @@ export default function ViewCategory(props) {
                 </MenuItem>
               ))}
             </TextField>
-            <div onClick={() => { changeAccountnat(accountant, props.categoryId) }} style={{ float: "right", cursor: "pointer" }}>Save</div></div>
+            <div onClick={() => { changeAccountnat(accountant, props.categoryId) }} className="upload-button">Save</div></div>
+            </div>
+            <div
+            variant="contained"
+            color="default"
+            className="camera"
+          >
+            <PhotoCamera />
+      </div>
+          <Popup trigger={
+          <div
+            variant="contained"
+            color="default"
+            className="upload-button"
+          >
+            Upload
+      </div>} modal>
+            {close => (
+              <div className="uploadModal">
+                <FormControl className="form" onSubmit={upload} noValidate autoComplete="off">
+                  <button className="close" onClick={() => {
+                    close()
+                    setError(false)
+                  }}>
+                    &times;</button>
+                  <div><TextField
+                    id="name"
+                    label="Name"
+                    rowsMax="4"
+                    onChange={onChangeName}
+                    required={true}
+                    className="text"
+                  /></div>
+                  <div className="dropZone">
+                    <DropzoneArea
+                      acceptedFiles={['image/*']}
+                      onChange={onChangeFile}
+                    />
+                  </div>
+                  <div className="actions">
+                    <button
+                      className="action"
+                      onClick={() => {
+                        upload(props.categoryId, props.userInfo.id)
+                        if (file && fileName) {
+                          close();
+                        }
+                      }}>Save</button>
+                  </div>
+                  {error === true && <FormHelperText error={error}>All fields required</FormHelperText>}
+                </FormControl>
+              </div>
+            )}
+          </Popup>
         </div>
-        <div className="fileUpload">
-          <form onSubmit={upload}>
-            <input type="file" onChange={onChangeFile} />
-            <TextField
-              id="standard-multiline-flexible"
-              label="Enter receipt name"
-              multiline
-              rowsMax="4"
-              onChange={onChangeName}
-            />
-            <button type='button' onClick={() => upload(props.categoryId, props.userInfo.id)}>Upload ==> </button>
-          </form>
-        </div>
+        
       </div>
       {receiptsList}
     </div>

@@ -38,7 +38,7 @@ export default function ViewCategory(props) {
           />
         </a>
 
-        <div>{receipt.name}</div>
+        <div className="receipt-name">{receipt.name}</div>
       </div>
     )
   })
@@ -48,8 +48,8 @@ export default function ViewCategory(props) {
       <div style={{ width: "100%" }}>
         <div className="categoryDetails">
           <div>
-            <div>Category: {userCategory}</div>
-            <div>Client: {props.userName}</div>
+          <div className="client-category-details">Category: {userCategory}</div>
+            <div className="client-category-details">Client: {props.userName}</div>
           </div>
         </div>
       </div>

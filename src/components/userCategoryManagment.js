@@ -58,7 +58,7 @@ export default function UserCategoryManagment(props) {
 
       {mode === "VIEWCATEGORY" && props.state.userCategories && (
         <div className="main">
-          <ViewCategory
+          <ViewCategory 
             getReceipts={getReceipts}
             state={state}
             accountantCompany={accountantCompany}
@@ -67,7 +67,7 @@ export default function UserCategoryManagment(props) {
             accountants={props.state.accountants}
             userInfo={props.state.userInfo}
           ></ViewCategory>
-          <Clientcategories
+          <Clientcategories 
             categories={props.state.userCategories}
             createView={createView}
             viewCategory={viewCategory}

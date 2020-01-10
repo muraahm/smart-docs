@@ -21,6 +21,13 @@ export default function CreateCategory(props) {
   //check if field empty
   const [error, setError] = React.useState(false);
 
+  //reset form after successfuly creating
+  const resetForm = () => {
+    setError(false)
+    setCategoryName('')
+    setAccountant('')
+  }
+
   return (
     <div className="newCategory">
       <TextField
@@ -56,6 +63,7 @@ export default function CreateCategory(props) {
             }
             else {
               props.create(category, accountant)
+              resetForm()
             }
           }}>Create
       </div>

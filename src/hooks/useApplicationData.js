@@ -95,7 +95,8 @@ export function useApplicationData() {
     const userCategories = [];
     localStorage.removeItem("together::accountant")
     localStorage.removeItem("together::token")
-    dispatch({ type: SET_USER_INFO, SET_USER_CATEGORIES, value: userInfo, userCategories });
+    dispatch({ type: SET_USER_INFO, value: userInfo });
+    dispatch({ type: SET_USER_CATEGORIES, value: userCategories });
   }
 
   const createCategory = (name, email, acct_company) => {
@@ -133,7 +134,7 @@ export function useApplicationData() {
       //get token from local storage and check if user client or accountant
       const token = localStorage.getItem("together::token");
       const isAccountant = localStorage.getItem("together::accountant");
-      
+
       //use effect api call if client logged in
       if (isAccountant === 'no') {
         Promise.all([

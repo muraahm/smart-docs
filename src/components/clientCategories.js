@@ -8,6 +8,7 @@ export default function Clientcategories(props) {
 
     //generate categories for the client view
     return (
+      
       <div className="categoryItem"
         key={category.id}
         id={category.id}
@@ -15,13 +16,16 @@ export default function Clientcategories(props) {
         accountantcompany={category.accountant_company}
         onClick={() => props.viewCategory(category, category.accountant_company)}
       >{category.name}</div>
+      
     )
   })
 
   //categories main view
   return (
     <div className="categoryList">
+      <div className='items-container'> 
       {categoryList}
+      </div> 
       <div className="add">
         <img
           style={{ cursor: 'pointer' }}

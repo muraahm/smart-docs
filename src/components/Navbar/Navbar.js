@@ -33,13 +33,18 @@ export default function NavBar(props) {
   };
 
 
-  //client registeration and login
+  //client registeration and login and reset the state
   const registerUser = () => {
     if (!name || !email || !password) {
       setError(true)
+
     }
     else {
       props.register(name, email, password)
+      setError(false)
+      setEmail('')
+      setName('')
+      setPassword('')
     }
 
 
@@ -50,25 +55,37 @@ export default function NavBar(props) {
     }
     else {
       props.login(email, password)
+      setError(false)
+      setEmail('')
+      setPassword('')
     }
   }
 
 
-  //accountant registeration and login
+  //accountant registeration and login and reset the state
   const registerAccontant = () => {
     if (!name || !email || !password || !accountantCompany) {
       setError(true)
     }
     else {
       props.registerAccountant(name, accountantCompany, email, password)
+      setError(false)
+      setEmail('')
+      setPassword('')
+      setName('')
+      setAccountantCompany('')
     }
   }
   const loginAccountant = () => {
     if (!email || !password) {
       setError(true)
+      
     }
     else {
       props.loginAccountant(email, password)
+      setError(false)
+      setEmail('')
+      setPassword('')
     }
   }
 
@@ -162,6 +179,7 @@ export default function NavBar(props) {
                             onClick={() => {
                               loginUser();
                               if (email && password) {
+                                setError(false)
                                 close();
                               }
                             }}>Login</button>
@@ -220,6 +238,7 @@ export default function NavBar(props) {
                             onClick={() => {
                               registerAccontant();
                               if (name && email && password && accountantCompany) {
+                                setError(false)
                                 close();
                               }
                             }}>Register</button>
@@ -261,6 +280,7 @@ export default function NavBar(props) {
                             onClick={() => {
                               loginAccountant();
                               if (email && password) {
+                                setError(false)
                                 close();
                               }
                             }}>Login</button>
@@ -317,6 +337,7 @@ export default function NavBar(props) {
                             onClick={() => {
                               registerUser();
                               if (name && email && password) {
+                                setError(false)
                                 close();
                               }
                             }}>Register</button>
@@ -358,6 +379,7 @@ export default function NavBar(props) {
                             onClick={() => {
                               loginUser();
                               if (email && password) {
+                                setError(false)
                                 close();
                               }
                             }}>Login</button>
@@ -419,6 +441,7 @@ export default function NavBar(props) {
                             onClick={() => {
                               registerAccontant();
                               if (name && email && password && accountantCompany) {
+                                setError(false)
                                 close();
                               }
                             }}>Register</button>
@@ -460,6 +483,7 @@ export default function NavBar(props) {
                             onClick={() => {
                               loginAccountant();
                               if (email && password) {
+                                setError(false)
                                 close();
                               }
                             }}>Login</button>

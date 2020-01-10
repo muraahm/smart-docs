@@ -403,7 +403,8 @@
   }
 
   .items-container {
-    height: 72%;
+    height: 95%;
+    overflow-y:auto;
   }
 
   .clients {

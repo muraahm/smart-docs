@@ -10,7 +10,7 @@ import { DropzoneArea } from 'material-ui-dropzone'
 import AWS from 'aws-sdk'
 import axios from "axios";
 import config from '../config'
-
+import { createWorker } from 'tesseract.js';
 
 export default function ViewCategory(props) {
 
@@ -44,6 +44,18 @@ export default function ViewCategory(props) {
   const [file, setFile] = React.useState('');
   const [fileName, setFileName] = React.useState('');
   const onChangeFile = (file) => {
+    // const worker = createWorker({
+    //   logger: m => console.log(m)
+    // });
+    
+    // (async () => {
+    //   await worker.load();
+    //   await worker.loadLanguage('eng');
+    //   await worker.initialize('eng');
+    //   const { data: { text } } = await worker.recognize(file[0]);
+    //   console.log(text);
+    //   await worker.terminate();
+    // })();
     setFile(file[0])
   }
 
@@ -104,8 +116,8 @@ export default function ViewCategory(props) {
         name={receipt.name}
       >
         <a href={url}>
-          <img
-            style={{ cursor: 'pointer' }}
+          <img 
+            style={{ cursor: 'pointer'}}
             src={url} // generated url from getSignedUrl
             alt="No Preview"
             height="130" width="100"
